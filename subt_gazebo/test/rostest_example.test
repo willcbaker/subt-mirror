@@ -1,0 +1,11 @@
+<launch>
+
+  <param name="/use_sim_time" value="true" />
+
+  <!-- gazebo server-->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="-r $(find gazebo_ros)/worlds/empty.world" />
+
+
+  <test test-name="example" pkg="subt_gazebo" type="rostest_example" time-limit="10.0" />
+
+</launch>
