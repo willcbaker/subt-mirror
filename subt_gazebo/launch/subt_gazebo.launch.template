@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="/use_sim_time" value="true" />
+
+  <arg name="competition_mode" value="$(optenv SUBT_COMPETITION false)" />
+  <arg name="gui" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="headless" value="false"/>
+  <arg name="verbose" default="true"/>
+  <arg name="world_path" />
+  <arg name="state_log_dir" value="$(env HOME)/.subt/log/gazebo" />
+
+  # Gazebo world.
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="$(arg world_path)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="verbose" value="$(arg verbose)" />
+    <arg name="extra_gazebo_args" value="@('-r --record_period 0.01 --record_path=$(arg state_log_dir)' if options['gazebo_state_logging'] else '')" />
+  </include>
+
+</launch>

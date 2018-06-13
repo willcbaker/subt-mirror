@@ -1,0 +1,6 @@
+# Competition configuration options
+options:
+  gazebo_state_logging: false
+  visualize_sensor_views: true
+
+time_limit: 5

@@ -114,7 +114,9 @@ add_dependencies(test_comms
 )
 
 find_package(rostest REQUIRED)
-add_rostest_gtest(rostest_example test/rostest_example.test test/rostest_example.cc)
+add_rostest_gtest(rostest_example
+  test/rostest_example.test
+  test/rostest_example.cc)
 target_link_libraries(rostest_example
   ${catkin_LIBRARIES}
   ${GAZEBO_LIBRARIES}
