@@ -216,7 +216,7 @@ def main(sysargv=None):
     else:
         world_file_path = ''
 
-    # Generate files based on the given yaml files and arguments.
+    # Generate file data based on the given yaml files and arguments.
     template_data = prepare_template_data(expanded_dict_config, args)
     files = generate_files(template_data)
 
@@ -245,7 +245,7 @@ def main(sysargv=None):
     # Make a command to run Gazebo
     cmd = [
         'roslaunch',
-        os.path.join(args.output, 'subt_gazebo.launch'),
+        os.path.join(args.output, 'rostest_example.launch'),
         'world_path:=' + world_file_path,
     ]
     # Additional arguments for the command.
