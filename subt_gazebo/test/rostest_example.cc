@@ -42,7 +42,7 @@ class ROSTestExample : public testing::Test
 };
 
 /////////////////////////////////////////////////
-TEST_F(ROSTestExample, switchOffAndOn)
+TEST_F(ROSTestExample, test1)
 {
   // ROS spinning
   std::shared_ptr<ros::AsyncSpinner> async_ros_spin_;
@@ -52,6 +52,8 @@ TEST_F(ROSTestExample, switchOffAndOn)
   // Initialize the transport node
   transport::NodePtr node = transport::NodePtr(new transport::Node());
   node->Init();
+
+  // Do something
 
   node->Fini();
 }

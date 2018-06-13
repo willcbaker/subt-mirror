@@ -121,6 +121,13 @@ target_link_libraries(rostest_example
   ${catkin_LIBRARIES}
   ${GAZEBO_LIBRARIES}
 )
+add_rostest_gtest(rostest_example2
+  test/rostest_example2.test
+  test/rostest_example.cc)
+target_link_libraries(rostest_example2
+  ${catkin_LIBRARIES}
+  ${GAZEBO_LIBRARIES}
+)
 
 #############
 ## Install ##

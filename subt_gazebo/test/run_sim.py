@@ -32,13 +32,70 @@ rospack = rospkg.RosPack()
 world_dir = os.path.join(rospack.get_path('subt_gazebo'), 'worlds')
 launch_dir = os.path.join(rospack.get_path('subt_gazebo'), 'launch')
 template_files = [
-#    os.path.join(world_dir, 'subt_gazebo.world.template'),
-    os.path.join(launch_dir, 'subt_gazebo.launch.template'),
-#    os.path.join(launch_dir, 'subt_gazebo.urdf.xacro.template'),
+    os.path.join(world_dir, 'rostest_example.world.template'),
+    os.path.join(launch_dir, 'rostest_example.launch.template'),
 ]
 
-# Prepares a parser for arguments.
-# You can see the acceptable options to this python script.
+# ========================================================================== #
+# ============ Defintiions of helper functions start here ================== #
+
+# Converts strings to booleans; copied from https://stackoverflow.com/a/43357954
+def str2bool(v):
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+# Create option info based on the given dictionary.
+def create_options_info(options_dict):
+    options = default_options
+    for option, val in options_dict.items():
+        options[option] = val
+    return options
+
+# Get the field "entry" in "data_dict".
+def get_field_with_default(data_dict, entry, default_value):
+    if entry in data_dict:
+        return data_dict[entry]
+    else:
+        return default_value
+
+# Generate files based on the template_data, which is made by yaml and args.
+def generate_files(template_data):
+    files = {}
+    for template_file in template_files:
+        with open(template_file, 'r') as f:
+            data = f.read()
+        files[template_file] = em.expand(data, template_data)
+    return files
+
+# Converts a string to an actual float value.
+def expand_to_float(val):
+    if isinstance(val, str):
+        return float(eval(val, {}, eval_local_vars))
+    return float(val)
+
+# Convert the yaml data in an appropriate format.
+def expand_yaml_substitutions(yaml_dict):
+    for k, v in yaml_dict.items():
+        if isinstance(v, dict):
+            yaml_dict[k] = expand_yaml_substitutions(v)
+        if k in ['xyz', 'rpy']:
+            yaml_dict[k] = [expand_to_float(x) for x in v]
+        if k in ['initial_joint_states']:
+            yaml_dict[k] = {kp: expand_to_float(vp) for kp, vp in v.items()}
+    return yaml_dict
+
+# ============= Defintiions of helper functions end here =================== #
+# ========================================================================== #
+
+# ========================================================================== #
+# ============ Settings of arguments of this script start here ============= #
+
+# Prepare a parser for arguments.
+# You can see the acceptable options to this python script below.
 def prepare_arguments(parser):
     add = parser.add_argument
     add('-n', '--dry-run', action='store_true', default=False,
@@ -53,10 +110,15 @@ def prepare_arguments(parser):
         help="don't run the gazebo client gui")
     add('-w', '--world', nargs=1, help='a path to a specific world file')
 
-    add('-l', '--state-logging', action='store', type=str2bool, nargs='?',
+    # These are configurable options
+    add('--explicit-tf', action='store', type=str2bool, nargs='?',
+        help='specify T/F by providing yes, true, y, t, 1/no, false, n, f, 0')
+    add('--true-if-arg-exists', action='store_true', default=False,
+        help='set true if it is given')
+    add('-l', '--gazebo-state-logging', action='store', type=str2bool, nargs='?',
         help='generate gazebo state logs (will override config file option)')
-    add('--visualize-sensor-views', action='store_true', default=False,
-        help='visualize the views of sensors in gazebo')
+
+    # These are for yaml data.
     mex_group = parser.add_mutually_exclusive_group(required=False)
     add = mex_group.add_argument
     add('config', nargs='?', metavar='CONFIG',
@@ -64,92 +126,74 @@ def prepare_arguments(parser):
     add('-f', '--file', nargs='+', help='list of paths to yaml files that contain the '
         'configuration (contents will be concatenated)')
 
-# Default settings
-configurable_options = {
+# ============ Settings of arguments of this script end here =============== #
+# ========================================================================== #
+
+# ========================================================================== #
+# ============ Default settings used in this script start here ============= #
+
+# Default settings for this script.
+default_random_seed = 0
+
+# ============ Default settings used in this script end here =============== #
+# ========================================================================== #
+
+# ========================================================================== #
+# =============== Settings for file generation start here ================== #
+
+# Default template data to generate launch file, etc.
+# These settings are overridden by yaml files and arguments
+# so template files are converted into appropriate actual files.
+default_options = {
+    'explicit_tf': False,
+    'true_if_arg_exists': False,
     'gazebo_state_logging': False,
-    'visualize_sensor_views': False,
 }
-default_time_limit = 500 # seconds
-default_world_file_path = os.path.join(world_dir, 'subt_gazebo.world')
+default_foo = 10
+default_bar = 20
 default_template_data = {
     'options': {},
-    'time_limit': default_time_limit,
-    'world_dir': world_dir,
+    'foo': default_foo,
+    'bar': default_bar,
 }
 
-# Make data to generate files based on the yaml and arguments.
+# Make template data to generate actual files.
+# The default template data is overridden by the yaml and arguments.
 def prepare_template_data(config_dict, args):
-    template_data = copy.copy(default_template_data)
     # Process the options first as they may affect the processing of the rest
     options_dict = get_field_with_default(config_dict, 'options', {})
+    template_data = copy.copy(default_template_data)
     template_data['options'].update(create_options_info(options_dict))
-    if args.state_logging is not None:
-        template_data['options']['gazebo_state_logging'] = args.state_logging
-    if args.visualize_sensor_views:
-        template_data['options']['visualize_sensor_views'] = True
+    if args.explicit_tf is not None:
+        template_data['options']['explicit_tf'] = args.explicit_tf
+    if args.true_if_arg_exists:
+        template_data['options']['true_if_arg_exists'] = True
+    if args.gazebo_state_logging is not None:
+        template_data['options']['gazebo_state_logging'] = args.gazebo_state_logging
 
     for key, value in config_dict.items():
         if key == 'options':
             pass
-        elif key == 'time_limit':
-            template_data['time_limit'] = value
+        elif key == 'foo':
+            template_data['foo'] = value
+        elif key == 'bar':
+            template_data['bar'] = value
         else:
             print("Error: unknown top level entry '{0}'".format(key), file=sys.stderr)
             sys.exit(1)
     return template_data
 
-# Helper for converting strings to booleans; copied from https://stackoverflow.com/a/43357954
-def str2bool(v):
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
-
-def create_options_info(options_dict):
-    options = configurable_options
-    for option, val in options_dict.items():
-        options[option] = val
-    return options
-
-def get_field_with_default(data_dict, entry, default_value):
-    if entry in data_dict:
-        return data_dict[entry]
-    else:
-        return default_value
-
-def generate_files(template_data):
-    files = {}
-    for template_file in template_files:
-        with open(template_file, 'r') as f:
-            data = f.read()
-        files[template_file] = em.expand(data, template_data)
-    return files
-
-def expand_to_float(val):
-    if isinstance(val, str):
-        return float(eval(val, {}, eval_local_vars))
-    return float(val)
-
-
-def expand_yaml_substitutions(yaml_dict):
-    for k, v in yaml_dict.items():
-        if isinstance(v, dict):
-            yaml_dict[k] = expand_yaml_substitutions(v)
-        if k in ['xyz', 'rpy']:
-            yaml_dict[k] = [expand_to_float(x) for x in v]
-        if k in ['initial_joint_states']:
-            yaml_dict[k] = {kp: expand_to_float(vp) for kp, vp in v.items()}
-    return yaml_dict
+# ================ Settings for file generation end here =================== #
+# ========================================================================== #
 
 def main(sysargv=None):
+    # Parse arguments.
     parser = argparse.ArgumentParser(
         description='Prepares and then executes a gazebo simulation based on configurations.')
     prepare_arguments(parser)
     args = parser.parse_args(sysargv)
-    print ('done?')
 
+    # Load yaml files.
     config_data = args.config or ''
     if args.file is not None:
         for file in args.file:
@@ -157,20 +201,20 @@ def main(sysargv=None):
                 comp_config_data = f.read()
                 config_data += comp_config_data
     dict_config = yaml.load(config_data) or {}
-
     expanded_dict_config = expand_yaml_substitutions(dict_config)
 
     if args.verbose:
         print(yaml.dump({'Using configuration': expanded_dict_config}))
 
-    random_seed = expanded_dict_config.pop('random_seed', None)
-
     # === generate a world file here? === #
+    random_seed = expanded_dict_config.pop('random_seed', None)
+    print('random_seed: ' + str(random_seed))
 
+    # Specify the path to a world file.
     if args.world:
         world_file_path = args.world[0]
     else:
-        world_file_path = default_world_file_path
+        world_file_path = ''
 
     # Generate files based on the given yaml files and arguments.
     template_data = prepare_template_data(expanded_dict_config, args)
@@ -195,7 +239,7 @@ def main(sysargv=None):
             print('writing file ' + file_path)
             with open(file_path, 'w+') as f:
                 f.write(content)
-        if name.endswith('.world'):
+        if name.endswith('.world') and world_file_path == '':
             world_file_path = os.path.join(args.output, name)
 
     # Make a command to run Gazebo
@@ -203,14 +247,14 @@ def main(sysargv=None):
         'roslaunch',
         os.path.join(args.output, 'subt_gazebo.launch'),
         'world_path:=' + world_file_path,
-#        'gear_urdf_xacro:=' + os.path.join(args.output, 'subt_gazebo.urdf.xacro'),
     ]
-    # additional arguments for the launch file.
+    # Additional arguments for the command.
     if args.verbose:
         cmd += ['verbose:=true']
     if args.no_gui:
         cmd += ['gui:=false']
 
+    # Update the environment settings here.
     if not args.development_mode:
         os.environ['SUBT_COMPETITION'] = '1'
 
