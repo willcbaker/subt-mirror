@@ -1,8 +1,8 @@
 <launch>
   <node name="subt_sim" pkg="subt_gazebo" type="run_sim.py"
-        args="-w $(find subt_gazebo)/worlds/lava_tube.world
-              -f $(find subt_gazebo)/test/rostest_example.yaml
-              --verbose --no-gui"/>
+        args="-f $(find subt_gazebo)/test/rostest_example.yaml
+              --verbose --no-gui
+              --explicit-tf --true-if-arg-exists --gazebo-state-logging"/>
 
   <test test-name="example" pkg="subt_gazebo" type="rostest_example" time-limit="10.0" />
 </launch>

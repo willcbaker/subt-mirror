@@ -1,7 +1,7 @@
 # Competition configuration options
 
 # === Settings used in run_sim.py === #
-random_seed: 100
+random_seed: 200
 
 # === Settings for template files === #
 options:

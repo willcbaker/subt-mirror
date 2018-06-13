@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-  <param name="/use_sim_time" value="true" />
-
   <arg name="competition_mode" value="$(optenv SUBT_COMPETITION false)" />
-  <arg name="gui" default="false"/>
+  <arg name="gui" default="true"/>
   <arg name="debug" default="false"/>
   <arg name="headless" value="false"/>
   <arg name="verbose" default="true"/>
