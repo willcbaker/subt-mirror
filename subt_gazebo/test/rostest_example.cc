@@ -15,15 +15,12 @@
  *
 */
 
-#include "ros/ros.h"
-
-#include <gtest/gtest.h>
-
-#include <gazebo/transport/transport.hh>
-#include <gazebo/msgs/msgs.hh>
 #include <gazebo/gazebo.hh>
 #include <gazebo/gazebo_client.hh>
-
+#include <gazebo/msgs/msgs.hh>
+#include <gazebo/transport/transport.hh>
+#include <gtest/gtest.h>
+#include "ros/ros.h"
 #include "test/test_config.h"
 
 using namespace gazebo;
@@ -55,6 +52,8 @@ TEST_F(ROSTestExample, switchOffAndOn)
   // Initialize the transport node
   transport::NodePtr node = transport::NodePtr(new transport::Node());
   node->Init();
+
+  node->Fini();
 }
 
 /////////////////////////////////////////////////

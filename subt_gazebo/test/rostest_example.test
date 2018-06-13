@@ -1,11 +1,8 @@
 <launch>
-
-  <param name="/use_sim_time" value="true" />
-
-  <!-- gazebo server-->
-  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="-r $(find gazebo_ros)/worlds/empty.world" />
-
+  <node name="subt_sim" pkg="subt_gazebo" type="run_sim.py"
+        args="-w $(find subt_gazebo)/worlds/lava_tube.world
+              -f $(find subt_gazebo)/test/rostest_example.yaml
+              --verbose --no-gui"/>
 
   <test test-name="example" pkg="subt_gazebo" type="rostest_example" time-limit="10.0" />
-
 </launch>
