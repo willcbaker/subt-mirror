@@ -18,6 +18,8 @@ find_package(catkin REQUIRED
     roscpp
 )
 
+find_package(gazebo REQUIRED)
+
 catkin_package(
   CATKIN_DEPENDS message_runtime
 )
@@ -33,6 +35,10 @@ catkin_package(
 ###########
 
 include_directories(${catkin_INCLUDE_DIRS})
+
+link_directories(
+  ${GAZEBO_LIBRARY_DIRS}
+)
 
 ## Declare a C++ executable
 add_executable(subt_example_node src/subt_example_node.cc)
