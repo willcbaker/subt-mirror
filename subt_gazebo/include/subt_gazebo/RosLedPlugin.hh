@@ -15,14 +15,15 @@
  *
 */
 
-#ifndef GAZEBO_PLUGINS_ROSFLASHLIGHTPLUGIN_HH_
-#define GAZEBO_PLUGINS_ROSFLASHLIGHTPLUGIN_HH_
+#ifndef GAZEBO_PLUGINS_ROSLEDPLUGIN_HH_
+#define GAZEBO_PLUGINS_ROSLEDPLUGIN_HH_
 
 #include <queue>
 
-#include <gazebo/plugins/FlashLightPlugin.hh>
 #include <ros/ros.h>
 #include <std_srvs/SetBool.h>
+
+#include <gazebo/plugins/LedPlugin.hh>
 
 namespace gazebo
 {
@@ -38,11 +39,11 @@ namespace gazebo
   /// the lights are turned on. In the case of false, they are turned off.
   ///
   /// This plugin inherits from FlashLightPlugin. While the format of parameters
-  /// follows that of the base plugin, it also accepts <service_name>,
+  /// follows that of the base plugin, it also accepts <main_switch_srvs>,
   /// to change the ROS service name.
   ///
   /// Example:
-  /// <service_name>light_control1</service_name>
+  /// <main_switch_srvs>light_control1</main_switch_srvs>
   /// <enable>true</enable>
   /// <flash_light>
   ///  <light_id>link1/light_source</light_id>
@@ -52,7 +53,7 @@ namespace gazebo
   /// </flash_light>
   /// ...
   ///
-  class RosFlashLightPlugin : public FlashLightPlugin
+  class RosLedPlugin : public LedPlugin
   {
     // Documentation inherited.
     public: void Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) override;
@@ -61,7 +62,7 @@ namespace gazebo
     /// \param[in] _req A request to turn on/off the lights.
     /// \param[in] _res A response to indicate success or failure.
     /// \return True if the order is successful.
-    public: virtual bool Control(
+    public: bool Control(
       std_srvs::SetBool::Request &_req, std_srvs::SetBool::Response &_res);
 
     /// \brief ROS service server.
