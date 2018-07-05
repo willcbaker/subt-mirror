@@ -156,3 +156,7 @@ install(DIRECTORY models/
 # Install all the world files
 install(DIRECTORY worlds/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/worlds)
+
+# Install all the scripts
+install(PROGRAMS nodes/terminator.bash
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
