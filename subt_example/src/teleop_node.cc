@@ -24,12 +24,10 @@
 class SubtTeleop
 {
 public:
-  SubtTeleop();
+  SubtTeleop(ros::NodeHandle &_nh, ros::NodeHandle &_nh_param);
 
 private:
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
-
-  ros::NodeHandle nh;
 
   int linear, angular;
   int enableTrigger;
@@ -48,24 +46,24 @@ private:
   ros::Subscriber joySub;
 };
 
-SubtTeleop::SubtTeleop():
-  linear(1), angular(0), enableTrigger(9), linearScale(0), angularScale(0),
-  linearTurbo(4), angularTurbo(3), enableTurboTrigger(10),
+SubtTeleop::SubtTeleop(ros::NodeHandle &_nh, ros::NodeHandle &_nh_param):
+  linear(1), angular(0), enableTrigger(2), linearScale(0), angularScale(0),
+  linearTurbo(4), angularTurbo(3), enableTurboTrigger(5),
   linearScaleTurbo(0), angularScaleTurbo(0)
 {
-  this->nh.param("axis_linear", this->linear, this->linear);
-  this->nh.param("axis_angular", this->angular, this->angular);
-  this->nh.param("enable_trigger", this->enableTrigger, this->enableTrigger);
-  this->nh.param("scale_linear", this->linearScale, this->linearScale);
-  this->nh.param("scale_angular", this->angularScale, this->angularScale);
+  _nh_param.param("axis_linear", this->linear, this->linear);
+  _nh_param.param("axis_angular", this->angular, this->angular);
+  _nh_param.param("enable_trigger", this->enableTrigger, this->enableTrigger);
+  _nh_param.param("scale_linear", this->linearScale, this->linearScale);
+  _nh_param.param("scale_angular", this->angularScale, this->angularScale);
 
-  this->nh.param("axis_linear_turbo", this->linearTurbo, this->linearTurbo);
-  this->nh.param("axis_angular_turbo", this->angularTurbo, this->angularTurbo);
-  this->nh.param("enable_turbo_trigger", this->enableTurboTrigger, -1);
-  this->nh.param("scale_linear_turbo", this->linearScaleTurbo, this->linearScaleTurbo);
-  this->nh.param("scale_angular_turbo", this->angularScaleTurbo, this->angularScaleTurbo);
+  _nh_param.param("axis_linear_turbo", this->linearTurbo, this->linearTurbo);
+  _nh_param.param("axis_angular_turbo", this->angularTurbo, this->angularTurbo);
+  _nh_param.param("enable_turbo_trigger", this->enableTurboTrigger, -1);
+  _nh_param.param("scale_linear_turbo", this->linearScaleTurbo, this->linearScaleTurbo);
+  _nh_param.param("scale_angular_turbo", this->angularScaleTurbo, this->angularScaleTurbo);
 
-  this->nh.getParam("button_map", this->joyButtonIndexMap);
+  _nh_param.getParam("button_map", this->joyButtonIndexMap);
 
   std::vector<YAML::Node> robotConf = YAML::LoadAllFromFile(ros::package::getPath("subt_example") + "/config/robot_list.yaml");
   for (std::size_t i = 0; i < robotConf.size(); ++i)
@@ -73,14 +71,14 @@ SubtTeleop::SubtTeleop():
     std::string name = robotConf[i]["name"].as<std::string>();
     std::string button = robotConf[i]["joy_select_button"].as<std::string>();
     // mapping from robot's name to a publisher
-    this->velPubMap[name] = this->nh.advertise<geometry_msgs::Twist>(name + "/cmd_vel", 1);
+    this->velPubMap[name] = _nh.advertise<geometry_msgs::Twist>(name + "/cmd_vel", 1);
     // mapping from button (e.g., 'A', 'B', 'X', 'Y') to robot's name
     this->joyButtonRobotMap[button] = name;
   }
   // select the first robot in default
   this->currentRobot = this->joyButtonRobotMap["A"];
 
-  this->joySub = this->nh.subscribe<sensor_msgs::Joy>("joy", 10, &SubtTeleop::joyCallback, this);
+  this->joySub = _nh.subscribe<sensor_msgs::Joy>("joy", 10, &SubtTeleop::joyCallback, this);
 }
 
 void SubtTeleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
@@ -121,7 +119,8 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "teleop_node");
 
-  SubtTeleop subtTeleop;
+  ros::NodeHandle nh, nh_param("~");
+  SubtTeleop subtTeleop(nh, nh_param);
 
   ros::spin();
 }
