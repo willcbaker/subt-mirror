@@ -45,6 +45,10 @@ add_executable(subt_example_node src/subt_example_node.cc)
 add_dependencies(subt_example_node ${catkin_EXPORTED_TARGETS})
 target_link_libraries(subt_example_node ${catkin_LIBRARIES})
 
+add_executable(teleop_node src/teleop_node.cc)
+add_dependencies(teleop_node ${catkin_EXPORTED_TARGETS})
+target_link_libraries(teleop_node ${catkin_LIBRARIES} yaml-cpp)
+
 ###########
 ## Tests ##
 ###########
@@ -58,8 +62,21 @@ target_link_libraries(subt_example_node ${catkin_LIBRARIES})
 install(DIRECTORY launch/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
 
+# Install all the urdf files
+install(DIRECTORY urdf/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
+
+# Install all config files
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config)
+
+# Install a python script
+catkin_install_python(PROGRAMS scripts/teleop_twist_keyboard.py
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+
 ## Mark executables and/or libraries for installation
-install(TARGETS subt_example_node
+install(TARGETS subt_example_node teleop_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
