@@ -5,6 +5,6 @@
 
   <!-- gazebo server-->
   <include file="$(find subt_gazebo)/launch/competition.launch" />
-  <test test-name="comms" pkg="subt_gazebo" type="test_comms" time-limit="10.0" />
+  <test test-name="comms" pkg="subt_gazebo" type="test_comms" time-limit="120.0" />
 
 </launch>
