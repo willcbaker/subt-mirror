@@ -25,7 +25,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <robot name="x1_decorations" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="x1_decorate">
+  <xacro:macro name="x1_decorate" params="robot_namespace">
 
     <!-- Spawn X1 chassis -->
     <link name="top_chassis_link">
@@ -33,7 +33,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
     <!-- Attach chassis to the robot -->
     <joint name="top_chassis_joint" type="fixed">
-      <parent link="base_link" />
+      <parent link="${robot_namespace}/base_link" />
       <child link="top_chassis_link" />
     </joint>
 
@@ -59,7 +59,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </link>
     <!-- Attach top plate -->
     <joint name="top_plate_joint" type="fixed">
-      <parent link="base_link" />
+      <parent link="${robot_namespace}/base_link" />
       <child link="top_plate_link"/>
       <origin xyz="0.0812 0 0.245" rpy="0 0 0"/>
     </joint>

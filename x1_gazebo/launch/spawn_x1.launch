@@ -27,7 +27,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <arg name="multimaster" default="false"/>
 
-  <arg name="robot_namespace" default="/"/>
+  <arg name="robot_namespace" default="/X1"/>
 
   <arg name="x" default="0.0"/>
   <arg name="y" default="0.0"/>

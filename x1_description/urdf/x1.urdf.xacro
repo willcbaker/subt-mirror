@@ -66,7 +66,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:property name="wheel_radius" value="0.1651" />
 
   <!-- Base link is the center of the robot's bottom plate -->
-  <link name="base_link">
+  <link name="$(arg robot_namespace)/base_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 3.1416" />
       <geometry>
@@ -92,7 +92,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <joint name="base_footprint_joint" type="fixed">
     <origin xyz="0 0 ${wheel_vertical_offset - wheel_radius}" rpy="0 0 0" />
-    <parent link="base_link" />
+    <parent link="$(arg robot_namespace)/base_link" />
     <child link="base_footprint" />
   </joint>
 
@@ -107,7 +107,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <joint name="inertial_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
-    <parent link="base_link" />
+    <parent link="$(arg robot_namespace)/base_link" />
     <child link="inertial_link" />
   </joint>
 
@@ -116,40 +116,40 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <link name="imu_link"/>
   <joint name="imu_joint" type="fixed">
     <origin xyz="$(optenv X1_IMU_XYZ 0.19 0 0.149)" rpy="$(optenv X1_IMU_RPY 0 -1.5708 3.1416)" />
-    <parent link="base_link" />
+    <parent link="$(arg robot_namespace)/base_link" />
     <child link="imu_link" />
   </joint>
   <gazebo reference="imu_link">
   </gazebo>
 
   <!-- X1 wheel macros -->
-  <xacro:x1_wheel wheel_prefix="front_left">
+  <xacro:x1_wheel wheel_prefix="front_left" robot_namespace="$(arg robot_namespace)">
     <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:x1_wheel>
-  <xacro:x1_wheel wheel_prefix="front_right">
+  <xacro:x1_wheel wheel_prefix="front_right" robot_namespace="$(arg robot_namespace)">
     <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:x1_wheel>
-  <xacro:x1_wheel wheel_prefix="rear_left">
+  <xacro:x1_wheel wheel_prefix="rear_left" robot_namespace="$(arg robot_namespace)">
     <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:x1_wheel>
-  <xacro:x1_wheel wheel_prefix="rear_right">
+  <xacro:x1_wheel wheel_prefix="rear_right" robot_namespace="$(arg robot_namespace)">
     <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:x1_wheel>
 
-  <xacro:x1_decorate />
+  <xacro:x1_decorate robot_namespace="$(arg robot_namespace)"/>
 
   <!-- Head lights -->
   <xacro:headlight headlight_prefix="left"
-    xyz="0.461459  0.216803 0.124431" rpy="0 0 3.1416" />
+    xyz="0.461459  0.216803 0.124431" rpy="0 0 3.1416" robot_namespace="$(arg robot_namespace)" />
   <xacro:headlight headlight_prefix="center_left"
-    xyz="0.485766 0.0844 0.124431" rpy="0 0 3.1416" />
+    xyz="0.485766 0.0844 0.124431" rpy="0 0 3.1416" robot_namespace="$(arg robot_namespace)" />
   <xacro:headlight headlight_prefix="center_right"
-    xyz="0.485766 -0.0844 0.124431" rpy="0 0 3.1416" />
+    xyz="0.485766 -0.0844 0.124431" rpy="0 0 3.1416" robot_namespace="$(arg robot_namespace)" />
   <xacro:headlight headlight_prefix="right"
-    xyz="0.461459  -0.216803 0.124431" rpy="0 0 3.1416" />
+    xyz="0.461459  -0.216803 0.124431" rpy="0 0 3.1416" robot_namespace="$(arg robot_namespace)" />
 
    <!-- LEDs -->
-  <xacro:led led_prefix="rear_right" xyz="-0.42493 -0.13619 0.209188" rpy="0 1.573 3.1416">
+  <xacro:led led_prefix="rear_right" xyz="-0.42493 -0.13619 0.209188" rpy="0 1.573 3.1416" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.3</duration>
@@ -158,7 +158,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </block>
     </plugin_params>
   </xacro:led>
-  <xacro:led led_prefix="rear_center" xyz="-0.42493 0 0.209188" rpy="0 1.573 3.1416">
+  <xacro:led led_prefix="rear_center" xyz="-0.42493 0 0.209188" rpy="0 1.573 3.1416" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.1</duration>
@@ -177,7 +177,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </block>
     </plugin_params>
   </xacro:led>
-  <xacro:led led_prefix="rear_left" xyz="-0.42493 0.13619 0.209188" rpy="0 1.573 3.1416">
+  <xacro:led led_prefix="rear_left" xyz="-0.42493 0.13619 0.209188" rpy="0 1.573 3.1416" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.3</duration>
@@ -186,7 +186,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </block>
     </plugin_params>
   </xacro:led>
-  <xacro:led led_prefix="right_lateral_front" xyz="0.066047 -0.212211 0.209188" rpy="0 1.573 -1.539">
+  <xacro:led led_prefix="right_lateral_front" xyz="0.066047 -0.212211 0.209188" rpy="0 1.573 -1.539" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.3</duration>
@@ -195,7 +195,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </block>
     </plugin_params>
   </xacro:led>
-  <xacro:led led_prefix="right_lateral_rear" xyz="-0.066047 -0.212211 0.209188" rpy="0 1.573 -1.539">
+  <xacro:led led_prefix="right_lateral_rear" xyz="-0.066047 -0.212211 0.209188" rpy="0 1.573 -1.539" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.3</duration>
@@ -204,7 +204,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </block>
     </plugin_params>
   </xacro:led>
-  <xacro:led led_prefix="left_lateral_front" xyz="0.066047 0.212211 0.209188" rpy="0 1.573 1.539">
+  <xacro:led led_prefix="left_lateral_front" xyz="0.066047 0.212211 0.209188" rpy="0 1.573 1.539" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.3</duration>
@@ -213,7 +213,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       </block>
     </plugin_params>
   </xacro:led>
-  <xacro:led led_prefix="left_lateral_rear" xyz="-0.066047 0.212211 0.209188" rpy="0 1.573 1.539">
+  <xacro:led led_prefix="left_lateral_rear" xyz="-0.066047 0.212211 0.209188" rpy="0 1.573 1.539" robot_namespace="$(arg robot_namespace)">
     <plugin_params>
       <block>
         <duration>0.3</duration>
@@ -256,13 +256,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <robotNamespace>$(arg robot_namespace)</robotNamespace>
     </plugin>
   </gazebo>
-
+  <!--
   <gazebo>
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
       <robotNamespace>$(arg robot_namespace)</robotNamespace>
       <updateRate>50.0</updateRate>
-      <frameId>$(arg tfpre)base_link</frameId>
-      <bodyName>base_link</bodyName>
+      <frameId>$(arg robot_namespace)/base_link</frameId>
+      <bodyName>$(arg robot_namespace)/base_link</bodyName>
       <topicName>imu/data</topicName>
       <accelDrift>0.005 0.005 0.005</accelDrift>
       <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
@@ -277,8 +277,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
       <robotNamespace>$(arg robot_namespace)</robotNamespace>
       <updateRate>40</updateRate>
-      <bodyName>base_link</bodyName>
-      <frameId>$(arg tfpre)base_link</frameId>
+      <bodyName>$(arg robot_namespace)/base_link</bodyName>
+      <frameId>$(arg robot_namespace)/base_link</frameId>
       <topicName>navsat/fix</topicName>
       <velocityTopicName>navsat/vel</velocityTopicName>
       <referenceLatitude>49.9</referenceLatitude>
@@ -288,6 +288,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <drift>0.0001 0.0001 0.0001</drift>
     </plugin>
   </gazebo>
+  -->
 
   <!-- Optional custom includes. -->
   <xacro:include filename="$(arg urdf_extras)" />

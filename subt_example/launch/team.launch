@@ -40,6 +40,7 @@
     <include file="$(find x2_control)/launch/control.launch">
       <arg name="robot_namespace" value="$(arg x2_name)" />
     </include>
+
   </group>
 
   <!-- X3 quadcopter -->
