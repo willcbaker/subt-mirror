@@ -88,16 +88,16 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   </link>
 
   <!-- Base footprint is on the ground under the robot -->
-  <link name="base_footprint"/>
+  <link name="$(arg robot_namespace)/base_footprint"/>
 
   <joint name="base_footprint_joint" type="fixed">
     <origin xyz="0 0 ${wheel_vertical_offset - wheel_radius}" rpy="0 0 0" />
     <parent link="$(arg robot_namespace)/base_link" />
-    <child link="base_footprint" />
+    <child link="$(arg robot_namespace)/base_footprint" />
   </joint>
 
   <!-- Interial link stores the robot's inertial information -->
-  <link name="inertial_link">
+  <link name="$(arg robot_namespace)/inertial_link">
     <inertial>
       <mass value="46.034" />
       <origin xyz="-0.00065 -0.085 0.062" />
@@ -108,18 +108,18 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <joint name="inertial_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="$(arg robot_namespace)/base_link" />
-    <child link="inertial_link" />
+    <child link="$(arg robot_namespace)/inertial_link" />
   </joint>
 
   <!-- IMU Link is the standard mounting position for the UM6 IMU.-->
   <!-- Can be modified with environment variables in /etc/ros/setup.bash -->
-  <link name="imu_link"/>
+  <link name="$(arg robot_namespace)/imu_link"/>
   <joint name="imu_joint" type="fixed">
     <origin xyz="$(optenv X1_IMU_XYZ 0.19 0 0.149)" rpy="$(optenv X1_IMU_RPY 0 -1.5708 3.1416)" />
     <parent link="$(arg robot_namespace)/base_link" />
-    <child link="imu_link" />
+    <child link="$(arg robot_namespace)/imu_link" />
   </joint>
-  <gazebo reference="imu_link">
+  <gazebo reference="$(arg robot_namespace)/imu_link">
   </gazebo>
 
   <!-- X1 wheel macros -->
