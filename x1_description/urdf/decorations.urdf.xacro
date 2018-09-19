@@ -28,16 +28,16 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:macro name="x1_decorate" params="robot_namespace">
 
     <!-- Spawn X1 chassis -->
-    <link name="top_chassis_link">
+    <link name="${robot_namespace}/top_chassis_link">
     </link>
 
     <!-- Attach chassis to the robot -->
     <joint name="top_chassis_joint" type="fixed">
       <parent link="${robot_namespace}/base_link" />
-      <child link="top_chassis_link" />
+      <child link="${robot_namespace}/top_chassis_link" />
     </joint>
 
-    <link name="top_plate_link">
+    <link name="${robot_namespace}/top_plate_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -60,23 +60,23 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <!-- Attach top plate -->
     <joint name="top_plate_joint" type="fixed">
       <parent link="${robot_namespace}/base_link" />
-      <child link="top_plate_link"/>
+      <child link="${robot_namespace}/top_plate_link"/>
       <origin xyz="0.0812 0 0.245" rpy="0 0 0"/>
     </joint>
     <!-- Top plate front link -->
     <joint name="top_plate_front_joint" type="fixed">
-      <parent link="top_plate_link" />
-      <child link="top_plate_front_link"/>
+      <parent link="${robot_namespace}/top_plate_link" />
+      <child link="${robot_namespace}/top_plate_front_link"/>
       <origin xyz="0.36367 0 0.00639" rpy="0 0 0"/>
     </joint>
     <!-- Top plate rear link-->
     <joint name="top_plate_rear_joint" type="fixed">
-      <parent link="top_plate_link" />
-      <child link="top_plate_rear_link"/>
+      <parent link="${robot_namespace}/top_plate_link" />
+      <child link="${robot_namespace}/top_plate_rear_link"/>
       <origin xyz="-0.36633 0 0.00639" rpy="0 0 0"/>
     </joint>
-    <link name="top_plate_front_link"/>
-    <link name="top_plate_rear_link"/>
+    <link name="${robot_namespace}/top_plate_front_link"/>
+    <link name="${robot_namespace}/top_plate_rear_link"/>
 
   </xacro:macro>
 
