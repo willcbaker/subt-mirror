@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<robot name="x3" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find rotors_description)/urdf/component_snippets.xacro" />
+  <!-- Instantiate x3 "mechanics" -->
+  <xacro:include filename="$(find x3_description)/urdf/x3.xacro" />
+
+  <!-- Instantiate a controller. -->
+  <xacro:controller_plugin_macro namespace="${namespace}" imu_sub_topic="imu" />
+
+</robot>
+
