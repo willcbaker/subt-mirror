@@ -359,7 +359,20 @@
       </attenuation>
       <cast_shadows>0</cast_shadows>
     </light>
-  
+
+    <light name='user_point_light_0' type='point'>
+      <pose>103 -72 -5 0 0 0</pose>
+      <diffuse>.6 .6 .6 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>50</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.0</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+    </light>
+ 
     <include>
       <name>barrier_0_-1</name>
       <pose>
@@ -1534,6 +1547,26 @@
       <uri>model://subway_station</uri>
       <name>subway_station</name>
       <pose>102.143272 -66.913231 -12.352085 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://x1_description</uri>
+      <pose>105.78 -69.407 -18.825 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://x2_description</uri>
+      <pose>104.78 -69.407 -18.89 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://x3_description</uri>
+      <pose>103.78 -69.407 -18.90 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://x4_description</uri>
+      <pose>102.78 -69.407 -18.845 0 0 1.570796</pose>
     </include>
 
   </world>
