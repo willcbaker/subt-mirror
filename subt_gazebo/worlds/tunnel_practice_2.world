@@ -10,6 +10,41 @@
 <sdf version="1.6">
   <world name="default">
 
+    <actor name="x3_model">
+      <pose>-20 -20 1.5 0 0 0</pose>
+      <include>
+        <uri>model://x3_description</uri>
+      </include>
+      <script>
+        <loop>false</loop>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
+          <waypoint>
+            <time>0.0</time>
+            <pose>-20 -20 1.5 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>22.0</time>
+            <pose>40.2 -0.9 1.5 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>28.0</time>
+            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>31.0</time>
+            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>35.0</time>
+            <pose>39.70 -15.61 0.77144 0 0 -1.032959</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+
     <actor name="camera_model">
       <pose>0 0 1.5 0 0 0</pose>
       <link name="box_link">
@@ -70,13 +105,36 @@
             <pose>0 0 1.5 0 0 0</pose>
           </waypoint>
           <waypoint>
-            <time>5.0</time>
+            <time>10.0</time>
             <pose>37.97 0 1.5 0 0 0</pose>
           </waypoint>
           <waypoint>
-            <time>8.0</time>
+            <time>15.0</time>
             <pose>37.97 0 1.5 -0.009635 0.191045 0.490471</pose>
           </waypoint>
+          <waypoint>
+            <time>20.0</time>
+            <pose>39 -1.74 1.5 0 0 -1.5707</pose>
+          </waypoint>
+
+          <!-- Follow Drone -->
+          <waypoint>
+            <time>28.0</time>
+            <pose>39 -1.74 1.5 0 0 -1.5707</pose>
+          </waypoint>
+          <waypoint>
+            <time>34.0</time>
+            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>35.0</time>
+            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>38.0</time>
+            <pose>38.010925 -13.014345 1.475827 0 0.374433 -1.158999</pose>
+          </waypoint>
+          <!-- end follow Drone -->
         </trajectory>
       </script>
     </actor>
@@ -194,14 +252,6 @@
           </contact>
         </sensor>
       </link>
-      <plugin name="touch_start_area" filename="libTouchPlugin.so">
-        <sensor>start_area_sensor</sensor>
-        <!-- empty target name lets the plugin detects everything -->
-        <target></target>
-        <time>0.001</time>
-        <namespace>subt/start</namespace>
-        <enabled>true</enabled>
-      </plugin>
     </model>
 
     <!-- Objects of interest -->
@@ -295,41 +345,6 @@
       <static>true</static>
       <uri>model://parrot_bebop_2</uri>
     </include>
-
-    <!-- The SubT challenge logic plugin -->
-    <plugin name="game_logic_plugin" filename="libGameLogicPlugin.so">
-      <!-- The collection of objects to locate -->
-      <object_of_interest>
-        <name>backpack_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>toolbox_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>extinguisher_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>valve_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>radio_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>duct_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>electrical_box_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>phone_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>backpack_2</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>radio_2</name>
-      </object_of_interest>
-    </plugin>
 
     <light name='user_spot_light_0' type='directional'>
       <pose>0 0 100 0 0 0</pose>
@@ -616,12 +631,6 @@
       <pose>40 -20 0 0 0 3.14159</pose>
     </include>
 
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_40_5</name>
-      <pose>40 -40 0 0 0 1.5708</pose>
-    </include>
-
     <!-- x = 60 -->
     <include>
       <uri>model://tunnel_tile_2</uri>
@@ -651,12 +660,6 @@
       <uri>model://tunnel_tile_1</uri>
       <name>tile_60_5</name>
       <pose>60 -40 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_60_6</name>
-      <pose>60 -60 0 0 0 1.5708</pose>
     </include>
 
     <include>
@@ -753,21 +756,10 @@
 
     <include>
       <uri>model://tunnel_tile_6</uri>
-      <name>tile_100_4</name>
-      <pose>100 -60 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
       <name>tile_100_5</name>
       <pose>100 -120 -5 0 0 1.5708</pose>
     </include>
 
-    <include>
-      <uri>model://tunnel_tile_7</uri>
-      <name>tile_100_6</name>
-      <pose>100 -140 -5 0 0 1.5708</pose>
-    </include>
 
     <!-- x = 120 -->
     <include>
@@ -1425,11 +1417,6 @@
       <pose>180 -70 -10 0 0 0</pose>
     </include>
 
-    <include>
-      <uri>model://tunnel_tile_blocker</uri>
-      <name>blocker_190_1</name>
-      <pose>190 -80 -10 0 0 0</pose>
-    </include>
 
     <include>
       <uri>model://tunnel_tile_blocker</uri>
@@ -1442,26 +1429,112 @@
       <name>blocker_260_1</name>
       <pose>260 -150 -10 0 0 0</pose>
     </include>
-    
 
-    <!-- The SubT comms broker plugin -->
-    <plugin name="comms_broker_plugin" filename="libCommsBrokerPlugin.so">
-      <comms_model>
-        <neighbor_distance_min>0.0</neighbor_distance_min>
-        <neighbor_distance_max>100.0</neighbor_distance_max>
-        <comms_distance_min>0.0</comms_distance_min>
-        <comms_distance_max>100.0</comms_distance_max>
-        <comms_drop_probability_min>0.0</comms_drop_probability_min>
-        <comms_drop_probability_max>0.0</comms_drop_probability_max>
-        <comms_outage_probability>0.0</comms_outage_probability>
-        <comms_outage_duration_min>0.0</comms_outage_duration_min>
-        <comms_outage_duration_max>10.0</comms_outage_duration_max>
-      </comms_model>
-    </plugin>
+    <!-- Wood wall blockage -->    
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall1</name>
+      <pose>42.2 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall2</name>
+      <pose>41 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall3</name>
+      <pose>39.8 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall4</name>
+      <pose>38.6 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall5</name>
+      <pose>37.4 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall6</name>
+      <pose>42.2 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall7</name>
+      <pose>41 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall8</name>
+      <pose>39.8 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall9</name>
+      <pose>38.6 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall10</name>
+      <pose>37.4 -11 1.2 0 0 0</pose>
+    </include>
+    <!-- End Wood wall blockage -->    
 
-    <!-- rotors_gazebo support -->
-    <plugin name="ros_interface_plugin"
-            filename="librotors_gazebo_ros_interface_plugin.so"/>
+    <include>
+      <uri>model://Backpack</uri>
+      <name>backpack3</name>
+      <pose>40.405201 -17.156942 0 0 0 -2.323987</pose>
+    </include>
+
+    <model name="rocky_tunnel_1">
+      <pose>21.282251 -55.654476 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>model://rocky_tunnel_1/meshes/rocky_tunnel_1.dae</uri>
+              <scale>1.6 1.6 1.6</scale>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://rocky_tunnel_1/meshes/rocky_tunnel_1.dae</uri>
+              <scale>1.6 1.6 1.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://tunnel_tile_6</uri>
+      <name>tile_100_4</name>
+      <pose>55.804722 -55.696278 -5.129915 0 0 1.570801</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_7</uri>
+      <name>tile_100_6</name>
+      <pose>75.78 -55.696278 -10.129915 0 0 1.5708</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_blocker</uri>
+      <name>blocker_190_1</name>
+      <pose>88 -55.696278 -10 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://subway_station</uri>
+      <name>subway_station</name>
+      <pose>102.143272 -66.913231 -12.352085 0 0 0</pose>
+    </include>
 
   </world>
 </sdf>
