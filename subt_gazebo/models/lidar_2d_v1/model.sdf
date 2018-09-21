@@ -40,6 +40,7 @@
           </mesh>
         </geometry>
       </visual>
+      <!--
       <sensor name="lidar_2d_v1" type="gpu_ray">
         <pose>0 0 0.0525045525 0 0 0</pose>
         <ray>
@@ -66,6 +67,7 @@
         <update_rate>30</update_rate>
         <visualize>false</visualize>
       </sensor>
+-->
     </link>
   </model>
 </sdf>
