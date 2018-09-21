@@ -462,7 +462,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/headlight_lamp.dae</uri>
+              <uri>model://x1_description/meshes/headlight_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -497,7 +497,7 @@
        <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/headlight_lamp.dae</uri>
+              <uri>model://x1_description/meshes/headlight_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -520,9 +520,6 @@
           </inertia>
         </inertial>
       </link>
-      <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
-        <service_name>enable</service_name>
-      </plugin>
     </model>
     <joint name='center_left_headlight' type='fixed'>
       <parent>/base_link</parent>
@@ -535,7 +532,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/headlight_lamp.dae</uri>
+              <uri>model://x1_description/meshes/headlight_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -558,9 +555,6 @@
           </inertia>
         </inertial>
       </link>
-      <plugin name='light_control' filename='libRosFlashLightPlugin.so'>
-        <service_name>enable</service_name>
-      </plugin>
     </model>
     <joint name='center_right_headlight' type='fixed'>
       <parent>/base_link</parent>
@@ -573,7 +567,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/headlight_lamp.dae</uri>
+              <uri>model://x1_description/meshes/headlight_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -608,7 +602,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -643,7 +637,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -678,7 +672,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -713,7 +707,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -748,7 +742,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -783,7 +777,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
@@ -818,7 +812,7 @@
         <visual name='light_source'>
           <geometry>
             <mesh>
-              <uri>package://x1_description/meshes/led_lamp.dae</uri>
+              <uri>model://x1_description/meshes/led_lamp.dae</uri>
             </mesh>
           </geometry>
           <transparency>1</transparency>
