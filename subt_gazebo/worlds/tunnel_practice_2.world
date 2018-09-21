@@ -11,7 +11,7 @@
   <world name="default">
 
     <actor name="camera_model">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 1.5 0 0 0</pose>
       <link name="box_link">
         <visual name="visual">
           <geometry>
@@ -62,28 +62,20 @@
   
       <script>
         <loop>false</loop>
-        <auto_start>false</auto_start>
-        <delay_start>2.0</delay_start>
-        <trajectory id='0' type='square'>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
           <waypoint>
             <time>0.0</time>
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 0 1.5 0 0 0</pose>
           </waypoint>
           <waypoint>
-            <time>1.0</time>
-            <pose>0.62 2.17 0 0 0 1.294259</pose>
+            <time>5.0</time>
+            <pose>37.97 0 1.5 0 0 0</pose>
           </waypoint>
           <waypoint>
-            <time>2.0</time>
-            <pose>1 1 1 0 0 0</pose>
-          </waypoint>
-          <waypoint>
-            <time>3.0</time>
-            <pose>1 -1 1 0 0 0</pose>
-          </waypoint>
-          <waypoint>
-            <time>4.0</time>
-            <pose>-1 -1 1 0 0 0</pose>
+            <time>8.0</time>
+            <pose>37.97 0 1.5 -0.009635 0.191045 0.490471</pose>
           </waypoint>
         </trajectory>
       </script>
