@@ -6,7 +6,7 @@ material Slides/slide_roadmap
       pass
       {
         scene_blend alpha_blend
-        depth_write on
+        depth_write off
         depth_check on
         lighting off
         texture_unit
