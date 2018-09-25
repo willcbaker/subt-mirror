@@ -43,7 +43,7 @@
 
   <!-- Instantiate multirotor_base_macro once -->
   <xacro:multirotor_base_macro
-    robot_namespace="${namespace}"
+    robot_namespace="X3"
     mass="${mass}"
     body_width="${body_width}"
     body_height="${body_height}"
@@ -55,12 +55,12 @@
 
   <!-- Instantiate rotors -->
   <xacro:vertical_rotor
-    robot_namespace="${namespace}"
+    robot_namespace="X3"
     suffix="front_right"
     direction="ccw"
     motor_constant="${motor_constant}"
     moment_constant="${moment_constant}"
-    parent="${namespace}/base_link"
+    parent="X3/base_link"
     mass_rotor="${mass_rotor}"
     radius_rotor="${radius_rotor}"
     time_constant_up="${time_constant_up}"
@@ -77,12 +77,12 @@
   </xacro:vertical_rotor>
 
   <xacro:vertical_rotor
-    robot_namespace="${namespace}"
+    robot_namespace="X3"
     suffix="back_left"
     direction="ccw"
     motor_constant="${motor_constant}"
     moment_constant="${moment_constant}"
-    parent="${namespace}/base_link"
+    parent="X3/base_link"
     mass_rotor="${mass_rotor}"
     radius_rotor="${radius_rotor}"
     time_constant_up="${time_constant_up}"
@@ -98,12 +98,12 @@
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
 
-  <xacro:vertical_rotor robot_namespace="${namespace}"
+  <xacro:vertical_rotor robot_namespace="X3"
     suffix="front_left"
     direction="cw"
     motor_constant="${motor_constant}"
     moment_constant="${moment_constant}"
-    parent="${namespace}/base_link"
+    parent="X3/base_link"
     mass_rotor="${mass_rotor}"
     radius_rotor="${radius_rotor}"
     time_constant_up="${time_constant_up}"
@@ -119,12 +119,12 @@
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
 
-  <xacro:vertical_rotor robot_namespace="${namespace}"
+  <xacro:vertical_rotor robot_namespace="X3"
     suffix="back_right"
     direction="cw"
     motor_constant="${motor_constant}"
     moment_constant="${moment_constant}"
-    parent="${namespace}/base_link"
+    parent="X3/base_link"
     mass_rotor="${mass_rotor}"
     radius_rotor="${radius_rotor}"
     time_constant_up="${time_constant_up}"
