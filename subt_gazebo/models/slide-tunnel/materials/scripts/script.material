@@ -7,7 +7,7 @@ material Slides/slide_tunnel
       {
         scene_blend alpha_blend
         depth_write off
-        depth_check off
+        depth_check on
         lighting off
         texture_unit
         {
