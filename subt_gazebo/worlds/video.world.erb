@@ -1,6 +1,6 @@
 <%
   speed = 2.0
-  x3StartTime = 57.0
+  x3StartTime = 67.0
   camPoses = [
     # Start
     ["rel", 0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0],
@@ -9,12 +9,12 @@
     # Rotate to look at objects of interest
     ["rel", 2.0, 37.97, 0.0, 1.5, 0, 0.177082, 0.152411],
     # Wait on object of interest 
-    ["rel", 15.0, 37.97, 0.0, 1.5, 0, 0.177082, 0.152411],
+    ["rel", 20.0, 37.97, 0.0, 1.5, 0, 0.177082, 0.152411],
 
     # Rotate to robots
     ["rel", 2.0, 37.97, 0.0, 1.5, 0, 0.149645, 1.1],
     # Wait on the robots 
-    ["rel", 15.0, 37.97, 0.0, 1.5, 0, 0.149645, 1.1],
+    ["rel", 20.0, 37.97, 0.0, 1.5, 0, 0.149645, 1.1],
 
     # Move to wall
     ["rel", 5.0, 39.0, -1.74, 1.5, 0.0, 0.0, -1.5707],
@@ -23,7 +23,8 @@
     # Follow for Drone 
     ["ms", speed, 40.62, -9.54, 2.86, 0, 0, -1.52],
     ["rel", 1, 40.75, -12.12, 2.86, 0, 0, -1.52],
-    ["rel", 3, 38.010925, -13.014345, 1.475827, 0, 0.374433, -1.158999],
+    ["rel", 3, 38.010925, -13.014345, 1.475827, 0, 0.09, -1.11],
+    ["rel", 20, 38.010925, -13.014345, 1.475827, 0, 0.09, -1.11],
     # Follow the tunnel curve
     ["ms", speed, 37.730495, -15.464586, 1.720790, 0, 0, -2.216327],
     ["ms", speed, 32.878242, -18.307577, 1.720785, 0, 0, -2.933560],
@@ -74,6 +75,7 @@
 <sdf version="1.6">
   <world name="default">
 
+  <!--
   <light name="dir_light_source" type="directional">
     <pose>0 0 100 0 0 0</pose>
     <attenuation>
@@ -87,6 +89,7 @@
     <specular>0.01 0.01 0.01 1</specular>
     <direction>0 0 -1</direction>
     </light>
+    -->
 
   <light name="use_light_source" type="spot">
     <pose>40 2 2.4 0.845327 0 0</pose>
@@ -117,7 +120,6 @@
           </geometry>
         </visual>
 
-        <!--
         <light name="light_source" type="spot">
             <pose>0 0 0 0 1.573 3.1415</pose>
             <attenuation>
@@ -135,7 +137,6 @@
               <falloff>1</falloff>
             </spot>
           </light>
-          -->
 
         <sensor name="camera" type="camera">
           <camera>
@@ -198,7 +199,7 @@
     </gui>
 
     <scene>
-      <ambient>0.8 0.8 0.8 1.0</ambient>
+      <ambient>0 0 0 1.0</ambient>
       <background>0.34 0.39 0.43 1.0</background>
       <grid>false</grid>
       <origin_visual>false</origin_visual>
