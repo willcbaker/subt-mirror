@@ -1,3 +1,13 @@
+<%
+camPoses = [
+  [0, 0, 1.5, 0, 0, 0],
+  [37.97, 0, 1.5, 0, 0, 0],
+  [37.97, 0, 1.5, -0.009635, 0.191045, 0.490471]
+  ]
+  for camPoses.each do |p|
+    puts p
+  end
+%>
 
 <?xml version="1.0" ?>
 <!--
@@ -9,41 +19,6 @@
 -->
 <sdf version="1.6">
   <world name="default">
-
-    <actor name="x3_model">
-      <pose>-20 -20 1.5 0 0 0</pose>
-      <include>
-        <uri>model://x3_description</uri>
-      </include>
-      <script>
-        <loop>false</loop>
-        <auto_start>true</auto_start>
-        <delay_start>5.0</delay_start>
-        <trajectory id='0' type='square' tension='1.0'>
-          <waypoint>
-            <time>0.0</time>
-            <pose>-20 -20 1.5 0 0 0</pose>
-          </waypoint>
-          <waypoint>
-            <time>22.0</time>
-            <pose>40.2 -0.9 1.5 0 0 -1.52</pose>
-          </waypoint>
-          <waypoint>
-            <time>28.0</time>
-            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
-          </waypoint>
-          <waypoint>
-            <time>31.0</time>
-            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
-          </waypoint>
-          <waypoint>
-            <time>35.0</time>
-            <pose>39.70 -15.61 0.77144 0 0 -1.032959</pose>
-          </waypoint>
-        </trajectory>
-      </script>
-    </actor>
-
 
     <actor name="camera_model">
       <pose>0 0 1.5 0 0 0</pose>
@@ -151,10 +126,66 @@
             <time>60.0</time>
             <pose>22.401323 -24.112837 1.720762 0 0 -2.016871</pose>
           </waypoint>
-
+          <waypoint>
+            <time>65.0</time>
+            <pose>20.619701 -27.105883 1.720762 0 0 -1.657295</pose>
+          </waypoint>
+          <waypoint>
+            <time>70.0</time>
+            <pose>20.224890 -31.658882 1.720762 0 0 -1.261816</pose>
+          </waypoint>
+          <waypoint>
+            <time>75.0</time>
+            <pose>21.354485 -35.197674 1.720762 0 0 -0.718038</pose>
+          </waypoint>
+          <waypoint>
+            <time>80.0</time>
+            <pose>24.499754 -37.945389 1.720762 0 0 -0.317611</pose>
+          </waypoint>
+          <!-- Enter the mine shaft -->
+          <waypoint>
+            <time>85.0</time>
+            <pose>28.562618 -39.281017 1.720762 0 0 -0.317611</pose>
+          </waypoint>
         </trajectory>
       </script>
     </actor>
+
+
+    <actor name="x3_model">
+      <pose>-20 -20 1.5 0 0 0</pose>
+      <include>
+        <uri>model://x3_description</uri>
+      </include>
+      <script>
+        <loop>false</loop>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
+          <waypoint>
+            <time>0.0</time>
+            <pose>-20 -20 1.5 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>22.0</time>
+            <pose>40.2 -0.9 1.5 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>28.0</time>
+            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>31.0</time>
+            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>35.0</time>
+            <pose>39.70 -15.61 0.77144 0 0 -1.032959</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
 
     <gui fullscreen='0'>
       <camera name='user_camera'>
