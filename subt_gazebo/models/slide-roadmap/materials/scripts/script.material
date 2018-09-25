@@ -1,0 +1,20 @@
+material Slides/slide_roadmap
+{
+  receive_shadows off
+    technique
+    {
+      pass
+      {
+        scene_blend alpha_blend
+        depth_write on
+        depth_check on
+        lighting off
+        texture_unit
+        {
+          texture slide-roadmap.png
+          filtering anistropic
+          max_anisotropy 16
+        }
+      }
+    }
+}

@@ -1,0 +1,932 @@
+
+
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+
+    <actor name="camera_model">
+      <pose>0 0 1.5 0 0 0</pose>
+      <link name="box_link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>.2 .2 .2</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <light name="light_source" type="spot">
+            <pose>0 0 0 0 1.573 3.1415</pose>
+            <attenuation>
+              <range>50</range>
+              <linear>0.03</linear>
+              <constant>0.01</constant>
+              <quadratic>0.0025</quadratic>
+            </attenuation>
+            <cast_shadows>0</cast_shadows>
+            <diffuse>0.8 0.8 0.6 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+            <spot>
+              <inner_angle>1</inner_angle>
+              <outer_angle>1.2</outer_angle>
+              <falloff>1</falloff>
+            </spot>
+          </light>
+
+        <sensor name="camera" type="camera">
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>1920</width>
+              <height>1080</height>
+            </image>
+            <clip>
+              <near>0.01</near>
+              <far>100</far>
+            </clip>
+            <save enabled="false">
+              <path>/tmp/subtvideo</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>true</visualize>
+        </sensor>
+      </link>
+  
+      <script>
+        <loop>false</loop>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
+        
+          <waypoint>
+            <time>0.0</time>
+            <pose>132.662521 -124.049477 -7.960843 0.000000 0.000000 -1.456916</pose>
+          </waypoint>
+        
+          <waypoint>
+            <time>3.3469956342096223</time>
+            <pose>138.837769 -121.465714 -7.960843 0.000000 0.632792 1.570700</pose>
+          </waypoint>
+        
+          <waypoint>
+            <time>11.329651333027607</time>
+            <pose>139.665009 -108.181572 -16.777782 0.000000 0.240401 1.570700</pose>
+          </waypoint>
+        
+          <waypoint>
+            <time>14.94673933447259</time>
+            <pose>139.000000 -101.000000 -17.340000 0.000000 0.000000 1.570700</pose>
+          </waypoint>
+        
+        </trajectory>
+      </script>
+    </actor>
+
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-51.7 -49.4 62.0 0 0.5 0.8</pose>
+      </camera>
+    </gui>
+
+    <scene>
+      <ambient>0.8 0.8 0.8 1.0</ambient>
+      <background>0.34 0.39 0.43 1.0</background>
+      <grid>false</grid>
+      <origin_visual>false</origin_visual>
+      <shadows>false</shadows>
+    </scene>
+
+    <!-- TODO(chapulina): Entrance placeholder -->
+    <model name="staging">
+      <pose>-1.181716 0 -0.002 0 0 0</pose>
+     <static>true</static>
+     <link name="link">
+       <pose>0 0 -0.5 0 0 0</pose>
+       <visual name="visual">
+         <geometry>
+           <box>
+             <size>25 25 1</size>
+           </box>
+         </geometry>
+         <material>
+           <script>
+             <uri>file://media/materials/scripts/gazebo.material</uri>
+             <name>Gazebo/Residential</name>
+           </script>
+         </material>
+       </visual>
+       <collision name="collision">
+         <geometry>
+           <box>
+             <size>25 20 1</size>
+           </box>
+         </geometry>
+       </collision>
+     </link>
+    </model>
+
+    
+    <model name="tunnel_entrance">
+      <pose>
+        10
+        0
+        -0.001
+        0
+        0
+        -1.5707963267948966
+      </pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <scale>
+                0.008
+                0.008 0.008
+              </scale>
+              <uri>model://tunnel_entrance/meshes/Entrance.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <scale>
+                0.008
+                0.008 0.008
+              </scale>
+              <uri>model://tunnel_entrance/meshes/Entrance.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+    <!-- Start Area where an object enters to initiate the game. -->
+    <model name="start_area">
+      <static>true</static>
+      <pose>
+        10
+        0
+        1.5
+        0
+        0
+        0
+      </pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>
+                1.0
+                5.0
+                3.0
+              </size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_without_contact>1</collide_without_contact>
+            </contact>
+          </surface>
+        </collision>
+        <sensor name="start_area_sensor" type="contact">
+          <contact>
+            <collision>collision</collision>
+          </contact>
+        </sensor>
+      </link>
+    </model>
+
+    <!-- Objects of interest -->
+    <include>
+      <name>backpack_0</name>
+      <pose>42.492123 0.876354 0 0 0 -1.230532</pose>
+      <uri>model://Backpack</uri>
+    </include>
+
+    <include>
+      <name>backpack_1</name>
+      <pose>38 33 0 0 0 0</pose>
+      <uri>model://Backpack</uri>
+    </include>
+
+    <include>
+      <name>toolbox_1</name>
+      <pose>121 62.2 -5 0 0 0.1</pose>
+      <uri>model://Toolbox</uri>
+    </include>
+    <include>
+      <name>toolbox_2</name>
+      <pose>42.381866 0.160873 0 0 0 -1.692822</pose>
+      <uri>model://Toolbox</uri>
+    </include>
+
+    <include>
+      <name>valve_2</name>
+      <pose>14.279 -2.24 0 0 0 3.14159</pose>
+      <uri>model://Valve</uri>
+    </include>
+
+
+    <include>
+      <name>radio_1</name>
+      <pose>200 -117.9 -10 0 0 0.6</pose>
+      <uri>model://Radio</uri>
+    </include>
+
+    <include>
+      <name>duct_2</name>
+      <pose>26.94 1.95 1.84 0 0 1.570796</pose>
+      <uri>model://Duct</uri>
+    </include>
+    <include>
+      <name>duct_3</name>
+      <pose>22.558044 -37.047646 2.556674 0 0 -0.561045</pose>
+      <uri>model://Duct</uri>
+    </include>
+    <include>
+      <name>duct_4</name>
+      <pose>23.651000 -38.148800 0 0 0 -38.148800</pose>
+      <uri>model://Duct</uri>
+    </include>
+
+    <include>
+      <name>phone_1</name>
+      <pose>42.010700 1.565940 0.077908 0 0 0</pose>
+      <uri>model://Phone</uri>
+    </include>
+    <include>
+      <name>extinguisher1</name>
+      <pose>41.975056 1.229655 0 0 0 0</pose>
+      <uri>model://Extinguisher</uri>
+    </include>
+    <include>
+      <name>electricbox1</name>
+      <pose>42.554634 2.631516 0.922656 1.570796 0 -0.615087</pose>
+      <uri>model://Electrical Box</uri>
+    </include>
+
+
+    <include>
+      <name>backpack_2</name>
+      <pose>340 -2.1 -10 0 0 -0.4</pose>
+      <uri>model://Backpack</uri>
+    </include>
+
+    <include>
+      <name>radio_2</name>
+      <pose>342 -140 -10 0 0 -0.6</pose>
+      <uri>model://Radio</uri>
+    </include>
+    <include>
+      <name>radio_3</name>
+      <pose>41.83 1.62 0 0 0 0</pose>
+      <uri>model://Radio</uri>
+    </include>
+
+    <!--
+    <include>
+      <name>parrot_1</name>
+      <pose>25.017 -20.88 1.82 0 0.228651 -2.169708</pose>
+      <static>true</static>
+      <uri>model://parrot_bebop_2</uri>
+    </include>
+    -->
+    <include>
+      <name>pallet_1</name>
+      <pose>22.898200 -22.230400 0 0 0 0</pose>
+      <static>true</static>
+      <uri>model://euro_pallet</uri>
+    </include>
+    <include>
+      <name>cinderblock_2</name>
+      <pose>23.940100 -22.820200 0 0 0 0</pose>
+      <static>true</static>
+      <uri>model://cinder_block_2</uri>
+    </include>
+    <include>
+      <name>cinderblock_1</name>
+      <pose>24.001100 -23.440900 0 0 0 0</pose>
+      <static>true</static>
+      <uri>model://cinder_block</uri>
+    </include>
+    <include>
+      <name>cinderblock_wide</name>
+      <pose>23.596512 -23.145439 0 0 0 0</pose>
+      <static>true</static>
+      <uri>model://cinder_block_wide</uri>
+    </include>
+
+    <!--
+    <light name='user_spot_light_0' type='directional'>
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>.6 .6 .6 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>0 0 -1</direction>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.0</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+    </light>
+    -->
+
+    <light name='user_point_light_0' type='point'>
+      <pose>118 -97 -5 0 0 0</pose>
+      <diffuse>.6 .6 .6 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>50</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.0</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+    </light>
+ 
+    <include>
+      <name>barrier_0_-1</name>
+      <pose>
+        8.0
+        -11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_0_1</name>
+      <pose>
+        8.0
+        11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_1_-1</name>
+      <pose>
+        3.7
+        -11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_1_1</name>
+      <pose>
+        3.7
+        11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_2_-1</name>
+      <pose>
+        -0.5999999999999996
+        -11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_2_1</name>
+      <pose>
+        -0.5999999999999996
+        11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_3_-1</name>
+      <pose>
+        -4.899999999999999
+        -11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_3_1</name>
+      <pose>
+        -4.899999999999999
+        11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_4_-1</name>
+      <pose>
+        -9.2
+        -11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_4_1</name>
+      <pose>
+        -9.2
+        11
+        0
+        0
+        0
+        0
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+
+  
+    <include>
+      <name>barrier_-9.5_-2</name>
+      <pose>
+        10.5
+        -8.6
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_-9.5_2</name>
+      <pose>
+        10.5
+        8.6
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_-32_-2</name>
+      <pose>
+        -12
+        -8.6
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_-32_-1</name>
+      <pose>
+        -12
+        -4.3
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_-32_0</name>
+      <pose>
+        -12
+        0.0
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_-32_1</name>
+      <pose>
+        -12
+        4.3
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+    <include>
+      <name>barrier_-32_2</name>
+      <pose>
+        -12
+        8.6
+        0
+        0
+        0
+        1.5707963267948966
+      </pose>
+      <uri>model://jersey_barrier</uri>
+    </include>
+  
+
+
+    <!-- Grid tiles -->
+
+    <!-- x = 20 -->
+    <include>
+      <uri>model://tunnel_tile_5</uri>
+      <name>tile_20_1</name>
+      <pose>20 0 0 0 0 1.5708</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_2</uri>
+      <name>tile_20_2</name>
+      <pose>20 -20 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_2</uri>
+      <name>tile_20_3</name>
+      <pose>20 -40 0 0 0 1.5708</pose>
+    </include>
+
+    <!-- x = 40 -->
+    <include>
+      <uri>model://tunnel_tile_2</uri>
+      <name>tile_40_1</name>
+      <pose>40 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_5</uri>
+      <name>tile_40_2</name>
+      <pose>40 20 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_1</uri>
+      <name>tile_40_3</name>
+      <pose>40 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_2</uri>
+      <name>tile_40_4</name>
+      <pose>40 -20 0 0 0 3.14159</pose>
+    </include>
+
+    <!-- x = 60 -->
+
+    <include>
+      <uri>model://tunnel_tile_2</uri>
+      <name>tile_60_3</name>
+      <pose>60 0 0 0 0 -1.5708</pose>
+    </include>
+
+
+    <!-- Cap blockers -->
+
+    <!-- Wood wall blockage -->    
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall1</name>
+      <pose>42.2 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall2</name>
+      <pose>41 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall3</name>
+      <pose>39.8 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall4</name>
+      <pose>38.6 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall5</name>
+      <pose>37.4 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall6</name>
+      <pose>42.2 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall7</name>
+      <pose>41 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall8</name>
+      <pose>39.8 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall9</name>
+      <pose>38.6 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall10</name>
+      <pose>37.4 -11 1.2 0 0 0</pose>
+    </include>
+    <!-- End Wood wall blockage -->    
+
+    <include>
+      <uri>model://Backpack</uri>
+      <name>backpack3</name>
+      <pose>40.405201 -17.156942 0 0 0 -2.323987</pose>
+    </include>
+
+    <model name="rocky_tunnel_1">
+      <pose>21.282251 -55.654476 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>model://rocky_tunnel_1/meshes/rocky_tunnel_1.dae</uri>
+              <scale>1.6 1.6 1.6</scale>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://rocky_tunnel_1/meshes/rocky_tunnel_1.dae</uri>
+              <scale>1.6 1.6 1.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://tunnel_tile_6</uri>
+      <name>tile_100_4</name>
+      <pose>55.804722 -55.696278 -5.129915 0 0 1.570801</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_7</uri>
+      <name>tile_100_6</name>
+      <pose>75.78 -55.696278 -10.129915 0 0 1.5708</pose>
+    </include>
+
+    <include>
+      <uri>model://cave_tile_1</uri>
+      <name>cave1</name>
+      <pose>100.854225 -55.696297 -10.661081 0 0 1.570801</pose>
+    </include>
+    <include>
+      <uri>model://cave_tile_1</uri>
+      <name>cave2</name>
+      <pose>100.854225 -36 -10.661081 0 0 1.570801</pose>
+    </include>
+    <include>
+      <uri>model://cave_tile_1</uri>
+      <name>cave3</name>
+      <pose>100.854225 -75 -10.661081 0 0 1.570801</pose>
+    </include>
+    <include>
+      <uri>model://cave_tile_3</uri>
+      <name>cave4</name>
+      <pose>120.773964 -55.696297 -10.661081 0 0 1.570801</pose>
+    </include>
+    <include>
+      <uri>model://cave_tile_4</uri>
+      <name>cave5</name>
+      <pose>120.773964 -75.666297 -10.661081 0 0 1.570801</pose>
+    </include>
+    <include>
+      <uri>model://cave_tile_4</uri>
+      <name>cave6</name>
+      <pose>140.753964 -55.696297 -10.661081 0 0 1.570801</pose>
+    </include>
+
+    <include>
+      <uri>model://tunnel_tile_blocker</uri>
+      <name>blocker_190_1</name>
+      <pose>88 -55.696278 -10 0 0 0</pose>
+    </include>
+
+    
+    
+    <include>
+      <uri>model://subway_station</uri>
+      <name>subway_station</name>
+      <pose>141.077835 -100.248779 -12.352085 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://x1_description</uri>
+      <pose>39.048038 4 0.142360 0 0 -1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://x2_description</uri>
+      <pose>38.109974 4 0.066040 0 0 -1.570796</pose>
+    </include>
+
+    <actor name="x3_model">
+      <pose>40.181034 4 0.053302 0 0 1.570796</pose>
+      <include>
+        <uri>model://x3_description</uri>
+      </include>
+      <script>
+        <loop>false</loop>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
+          <waypoint>
+            <time>0.0</time>
+            <pose>40.181034 4 0.053302 0 0 1.570796</pose>
+          </waypoint>
+          <waypoint>
+            <time>47.0</time>
+            <pose>40.181034 4 0.053302 0 0 1.570796</pose>
+          </waypoint>
+          <waypoint>
+            <time>52.0</time>
+            <pose>40.2 -0.9 1.5 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>57.0</time>
+            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>59.0</time>
+            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>61.0</time>
+            <pose>39.70 -15.61 0.77144 0 0 -1.032959</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <!--
+    <include>
+      <uri>model://x3_description</uri>
+      <pose>40.181034 4 0.053302 0 0 1.570796</pose>
+    </include>
+    -->
+
+    <include>
+      <uri>model://x4_description</uri>
+      <pose>41.107574 4 0.121078 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://lidar_2d_v1</uri>
+      <pose>39 4 1 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <uri>model://lidar_2d_v2</uri>
+      <pose>39.5 4 1 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <uri>model://lidar_3d_v1</uri>
+      <pose>40.0 4 1 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <uri>model://lidar_3d_v2</uri>
+      <pose>40.5 4 1 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <uri>model://camera</uri>
+      <pose>41 4 1  0 0 3.1415</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <uri>model://rgbd_camera</uri>
+      <pose>41.5 4 1 0 0 3.1415</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://battery</uri>
+      <pose>141.049927 -106.472153 -25.619036 0 0 3.141501</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-tunnel</uri>
+      <pose>8 0 -0.3 0 0 1.5707</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-objs</uri>
+      <pose>42.234451 1.049701 -0.566868 0 0 -1.377081</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-starterkit</uri>
+      <pose>39.835457 3.403061 -0.243738 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-score</uri>
+      <pose>40.01 -16.739323 -0.836854 0 0 0.869242</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-debris</uri>
+      <pose>23.250145 -22.971689 -0.348316 0 0 2.280252</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-mine</uri>
+      <pose>29.131363 -39.493889 0.028019 0 0 1.529906</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-incline</uri>
+      <pose>45.405396 -55.777718 0.028019 0 0 1.5707</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-vertical</uri>
+      <pose>75.595894 -55.702129 -4.911947 0 0 1.5707</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-deadend</uri>
+      <pose>82.978394 -55.702129 -10.174059 0 0 1.5707</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-cave</uri>
+      <pose>90.766670 -55.702129 -10.174059 0 0 1.5707</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-urban</uri>
+      <pose>127.556641 -75.758972 -9.545166 0 0 0.461679</pose>
+    </include>
+
+    <include>
+      <uri>model://slide-roadmap</uri>
+      <pose>139.035858 -97.026489 -18.865757 0 0 3.1415</pose>
+    </include>
+
+
+
+  </world>
+</sdf>
