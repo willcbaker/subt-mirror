@@ -4,6 +4,7 @@
 <sdf version="1.6">
   <world name="default">
 
+  <!--
   <light name="dir_light_source" type="directional">
     <pose>0 0 100 0 0 0</pose>
     <attenuation>
@@ -17,6 +18,7 @@
     <specular>0.01 0.01 0.01 1</specular>
     <direction>0 0 -1</direction>
     </light>
+    -->
 
   <light name="use_light_source" type="spot">
     <pose>40 2 2.4 0.845327 0 0</pose>
@@ -47,7 +49,6 @@
           </geometry>
         </visual>
 
-        <!--
         <light name="light_source" type="spot">
             <pose>0 0 0 0 1.573 3.1415</pose>
             <attenuation>
@@ -65,7 +66,6 @@
               <falloff>1</falloff>
             </spot>
           </light>
-          -->
 
         <sensor name="camera" type="camera">
           <camera>
@@ -110,23 +110,18 @@
           </waypoint>
         
           <waypoint>
-            <time>35.985</time>
+            <time>40.985</time>
             <pose>37.970000 0.000000 1.500000 0.000000 0.177082 0.152411</pose>
           </waypoint>
         
           <waypoint>
-            <time>37.985</time>
+            <time>42.985</time>
             <pose>37.970000 0.000000 1.500000 0.000000 0.149645 1.100000</pose>
           </waypoint>
         
           <waypoint>
-            <time>52.985</time>
+            <time>62.985</time>
             <pose>37.970000 0.000000 1.500000 0.000000 0.149645 1.100000</pose>
-          </waypoint>
-        
-          <waypoint>
-            <time>57.985</time>
-            <pose>39.000000 -1.740000 1.500000 0.000000 0.000000 -1.570700</pose>
           </waypoint>
         
           <waypoint>
@@ -135,187 +130,197 @@
           </waypoint>
         
           <waypoint>
-            <time>72.0258538701616</time>
+            <time>77.985</time>
+            <pose>39.000000 -1.740000 1.500000 0.000000 0.000000 -1.570700</pose>
+          </waypoint>
+        
+          <waypoint>
+            <time>82.0258538701616</time>
             <pose>40.620000 -9.540000 2.860000 0.000000 0.000000 -1.520000</pose>
           </waypoint>
         
           <waypoint>
-            <time>73.0258538701616</time>
+            <time>83.0258538701616</time>
             <pose>40.750000 -12.120000 2.860000 0.000000 0.000000 -1.520000</pose>
           </waypoint>
         
           <waypoint>
-            <time>76.0258538701616</time>
-            <pose>38.010925 -13.014345 1.475827 0.000000 0.374433 -1.158999</pose>
+            <time>86.0258538701616</time>
+            <pose>38.010925 -13.014345 1.475827 0.000000 0.090000 -1.110000</pose>
           </waypoint>
         
           <waypoint>
-            <time>77.26503997546924</time>
+            <time>106.0258538701616</time>
+            <pose>38.010925 -13.014345 1.475827 0.000000 0.090000 -1.110000</pose>
+          </waypoint>
+        
+          <waypoint>
+            <time>107.26503997546924</time>
             <pose>37.730495 -15.464586 1.720790 0.000000 0.000000 -2.216327</pose>
           </waypoint>
         
           <waypoint>
-            <time>80.07693244327962</time>
+            <time>110.07693244327962</time>
             <pose>32.878242 -18.307577 1.720785 0.000000 0.000000 -2.933560</pose>
           </waypoint>
         
           <waypoint>
-            <time>83.5014199949614</time>
+            <time>113.5014199949614</time>
             <pose>26.160959 -19.644203 1.720762 0.000000 0.000000 -2.352124</pose>
           </waypoint>
         
           <waypoint>
-            <time>86.42133235145653</time>
+            <time>116.42133235145653</time>
             <pose>22.401323 -24.112837 1.720762 0.000000 0.000000 -2.016871</pose>
           </waypoint>
         
           <waypoint>
-            <time>88.16291936543257</time>
+            <time>118.16291936543257</time>
             <pose>20.619701 -27.105883 1.720762 0.000000 0.000000 -1.657295</pose>
           </waypoint>
         
           <waypoint>
-            <time>90.44796179500155</time>
+            <time>120.44796179500155</time>
             <pose>20.224890 -31.658882 1.720762 0.000000 0.000000 -1.261816</pose>
           </waypoint>
         
           <waypoint>
-            <time>92.30531432503516</time>
+            <time>122.30531432503516</time>
             <pose>21.354485 -35.197674 1.720762 0.000000 0.000000 -0.718038</pose>
           </waypoint>
         
           <waypoint>
-            <time>94.39353454831058</time>
+            <time>124.39353454831058</time>
             <pose>24.499754 -37.945389 1.720762 0.000000 0.000000 -0.317611</pose>
           </waypoint>
         
           <waypoint>
-            <time>96.53191980574667</time>
+            <time>126.53191980574667</time>
             <pose>28.562618 -39.281017 1.720762 0.000000 0.000000 -0.317611</pose>
           </waypoint>
         
           <waypoint>
-            <time>97.25702427197757</time>
+            <time>127.25702427197757</time>
             <pose>29.940294 -39.733913 1.720762 0.000000 0.000000 -0.726002</pose>
           </waypoint>
         
           <waypoint>
-            <time>101.94548586395233</time>
+            <time>131.9454858639523</time>
             <pose>36.630123 -46.304520 1.720762 0.000000 0.000000 -1.254701</pose>
           </waypoint>
         
           <waypoint>
-            <time>107.45504256085992</time>
+            <time>137.4550425608599</time>
             <pose>40.055504 -56.777706 1.720762 0.000000 0.000000 -1.254701</pose>
           </waypoint>
         
           <waypoint>
-            <time>111.45504256085992</time>
+            <time>141.4550425608599</time>
             <pose>40.055504 -56.777706 1.720762 0.000000 0.000000 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>115.24748626288408</time>
+            <time>145.24748626288408</time>
             <pose>47.576775 -56.155281 0.963407 0.000000 0.181343 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>123.84267280395075</time>
+            <time>153.84267280395073</time>
             <pose>64.073120 -55.626659 -3.842848 0.000000 0.281155 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>127.91017100677041</time>
+            <time>157.9101710067704</time>
             <pose>72.200874 -55.969852 -3.842848 0.000000 -0.068128 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>131.9101710067704</time>
+            <time>161.9101710067704</time>
             <pose>72.200874 -55.969852 -3.291655 0.000000 0.700409 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>135.73157761360608</time>
+            <time>165.73157761360608</time>
             <pose>78.246216 -56.225033 -7.960843 0.000000 0.655931 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>135.73157761360608</time>
+            <time>165.73157761360608</time>
             <pose>78.246216 -56.225033 -7.960843 0.000000 0.000000 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>143.37806561360634</time>
+            <time>173.37806561360634</time>
             <pose>93.539192 -56.225029 -7.960843 0.000000 0.000000 0.000000</pose>
           </waypoint>
         
           <waypoint>
-            <time>145.37806561360634</time>
+            <time>175.37806561360634</time>
             <pose>93.539192 -56.225029 -7.960843 0.000000 0.000000 0.554337</pose>
           </waypoint>
         
           <waypoint>
-            <time>149.34173708351176</time>
+            <time>179.34173708351176</time>
             <pose>100.454552 -52.349392 -7.960843 0.000000 0.000000 0.289447</pose>
           </waypoint>
         
           <waypoint>
-            <time>151.34173708351176</time>
+            <time>181.34173708351176</time>
             <pose>100.454552 -52.349392 -7.960843 0.000000 0.000000 -0.166500</pose>
           </waypoint>
         
           <waypoint>
-            <time>161.48916246929633</time>
+            <time>191.48916246929633</time>
             <pose>120.069046 -57.560207 -7.960843 0.000000 0.000000 -0.166500</pose>
           </waypoint>
         
           <waypoint>
-            <time>163.48916246929633</time>
+            <time>193.48916246929633</time>
             <pose>120.069046 -57.560207 -7.960843 0.000000 0.000000 -1.447008</pose>
           </waypoint>
         
           <waypoint>
-            <time>167.50486102842603</time>
+            <time>197.50486102842603</time>
             <pose>121.061890 -65.530000 -7.960843 0.000000 0.000000 -1.097570</pose>
           </waypoint>
         
           <waypoint>
-            <time>170.9118107689469</time>
+            <time>200.9118107689469</time>
             <pose>124.161919 -71.597870 -7.960843 0.000000 0.000000 -0.487482</pose>
           </waypoint>
         
           <waypoint>
-            <time>176.01308017539725</time>
+            <time>206.01308017539725</time>
             <pose>133.176010 -76.376778 -7.960843 0.000000 0.000000 -0.487482</pose>
           </waypoint>
         
           <waypoint>
-            <time>178.01308017539725</time>
+            <time>208.01308017539725</time>
             <pose>133.176010 -76.376778 -7.960843 0.000000 0.000000 -1.456916</pose>
           </waypoint>
         
           <waypoint>
-            <time>198.3067193389013</time>
+            <time>228.3067193389013</time>
             <pose>132.662521 -116.960808 -7.960843 0.000000 0.000000 -1.456916</pose>
           </waypoint>
         
           <waypoint>
-            <time>201.8510538389013</time>
+            <time>231.8510538389013</time>
             <pose>132.662521 -124.049477 -7.960843 0.000000 0.000000 -1.456916</pose>
           </waypoint>
         
           <waypoint>
-            <time>205.19804947311093</time>
+            <time>235.19804947311093</time>
             <pose>138.837769 -121.465714 -7.960843 0.000000 0.632792 1.570700</pose>
           </waypoint>
         
           <waypoint>
-            <time>213.1807051719289</time>
+            <time>243.1807051719289</time>
             <pose>139.665009 -108.181572 -16.777782 0.000000 0.240401 1.570700</pose>
           </waypoint>
         
           <waypoint>
-            <time>216.7977931733739</time>
+            <time>246.7977931733739</time>
             <pose>139.000000 -101.000000 -17.340000 0.000000 0.000000 1.570700</pose>
           </waypoint>
         
@@ -331,7 +336,7 @@
     </gui>
 
     <scene>
-      <ambient>0.8 0.8 0.8 1.0</ambient>
+      <ambient>0 0 0 1.0</ambient>
       <background>0.34 0.39 0.43 1.0</background>
       <grid>false</grid>
       <origin_visual>false</origin_visual>
@@ -1034,23 +1039,23 @@
             <pose>40.181034 4 0.053302 0 0 1.570796</pose>
           </waypoint>
           <waypoint>
-            <time>47.0</time>
+            <time>67.0</time>
             <pose>40.181034 4 0.053302 0 0 1.570796</pose>
           </waypoint>
           <waypoint>
-            <time>52.0</time>
+            <time>72.0</time>
             <pose>40.2 -0.9 1.5 0 0 -1.52</pose>
           </waypoint>
           <waypoint>
-            <time>57.0</time>
+            <time>77.0</time>
             <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
           </waypoint>
           <waypoint>
-            <time>59.0</time>
+            <time>79.0</time>
             <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
           </waypoint>
           <waypoint>
-            <time>61.0</time>
+            <time>81.0</time>
             <pose>39.70 -15.61 0.77144 0 0 -1.032959</pose>
           </waypoint>
         </trajectory>
