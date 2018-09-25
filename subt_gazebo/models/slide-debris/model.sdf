@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+<model name='slide-debris'>
+  <static>1</static>
+  <link name='link'>
+    <pose frame=''>0 0 1.5 0 -0 0</pose>
+    <visual name='visual'>
+      <geometry>
+        <box>
+          <size>2 0.001 1.5</size>
+        </box>
+      </geometry>
+      <material>
+        <script>
+          <uri>model://slide-debris/materials/scripts</uri>
+          <uri>model://slide-debris/materials/textures</uri>
+          <name>Slides/slide_debris</name>
+        </script>
+      </material>
+    </visual>
+  </link>
+</model>
+</sdf>

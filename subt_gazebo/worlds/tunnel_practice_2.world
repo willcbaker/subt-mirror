@@ -1,3 +1,13 @@
+<%
+camPoses = [
+  [0, 0, 1.5, 0, 0, 0],
+  [37.97, 0, 1.5, 0, 0, 0],
+  [37.97, 0, 1.5, -0.009635, 0.191045, 0.490471]
+  ]
+  for camPoses.each do |p|
+    puts p
+  end
+%>
 
 <?xml version="1.0" ?>
 <!--
@@ -10,6 +20,173 @@
 <sdf version="1.6">
   <world name="default">
 
+    <actor name="camera_model">
+      <pose>0 0 1.5 0 0 0</pose>
+      <link name="box_link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>.2 .2 .2</size>
+            </box>
+          </geometry>
+        </visual>
+
+        <light name="light_source" type="spot">
+            <pose>0 0 0 0 1.573 0</pose>
+            <attenuation>
+              <range>50</range>
+              <linear>0</linear>
+              <constant>0.01</constant>
+              <quadratic>0.0025</quadratic>
+            </attenuation>
+            <diffuse>0.6 0.6 0.4 1</diffuse>
+            <specular>0.2 0.2 0.1 1</specular>
+            <spot>
+              <inner_angle>1</inner_angle>
+              <outer_angle>1.2</outer_angle>
+              <falloff>1</falloff>
+            </spot>
+            <direction>0 0 1</direction>
+          </light>
+
+        <sensor name="camera" type="camera">
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>1920</width>
+              <height>1080</height>
+            </image>
+            <clip>
+              <near>0.01</near>
+              <far>100</far>
+            </clip>
+            <save enabled="false">
+              <path>/tmp/subtvideo</path>
+            </save>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>true</visualize>
+        </sensor>
+      </link>
+  
+      <script>
+        <loop>false</loop>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
+          <waypoint>
+            <time>0.0</time>
+            <pose>0 0 1.5 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>10.0</time>
+            <pose>37.97 0 1.5 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>15.0</time>
+            <pose>37.97 0 1.5 -0.009635 0.191045 0.490471</pose>
+          </waypoint>
+          <waypoint>
+            <time>20.0</time>
+            <pose>39 -1.74 1.5 0 0 -1.5707</pose>
+          </waypoint>
+
+          <!-- Follow Drone -->
+          <waypoint>
+            <time>28.0</time>
+            <pose>39 -1.74 1.5 0 0 -1.5707</pose>
+          </waypoint>
+          <waypoint>
+            <time>34.0</time>
+            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>35.0</time>
+            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>38.0</time>
+            <pose>38.010925 -13.014345 1.475827 0 0.374433 -1.158999</pose>
+          </waypoint>
+          <!-- end follow Drone -->
+          <waypoint>
+            <time>45.0</time>
+            <pose>37.730495 -15.464586 1.720790 0 0 -2.216327</pose>
+          </waypoint>
+          <waypoint>
+            <time>50.0</time>
+            <pose>32.878242 -18.307577 1.720785 0 0 -2.933560</pose>
+          </waypoint>
+          <waypoint>
+            <time>55.0</time>
+            <pose>26.160959 -19.644203 1.720762 0 0 -2.352124</pose>
+          </waypoint>
+          <waypoint>
+            <time>60.0</time>
+            <pose>22.401323 -24.112837 1.720762 0 0 -2.016871</pose>
+          </waypoint>
+          <waypoint>
+            <time>65.0</time>
+            <pose>20.619701 -27.105883 1.720762 0 0 -1.657295</pose>
+          </waypoint>
+          <waypoint>
+            <time>70.0</time>
+            <pose>20.224890 -31.658882 1.720762 0 0 -1.261816</pose>
+          </waypoint>
+          <waypoint>
+            <time>75.0</time>
+            <pose>21.354485 -35.197674 1.720762 0 0 -0.718038</pose>
+          </waypoint>
+          <waypoint>
+            <time>80.0</time>
+            <pose>24.499754 -37.945389 1.720762 0 0 -0.317611</pose>
+          </waypoint>
+          <!-- Enter the mine shaft -->
+          <waypoint>
+            <time>85.0</time>
+            <pose>28.562618 -39.281017 1.720762 0 0 -0.317611</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+
+    <actor name="x3_model">
+      <pose>-20 -20 1.5 0 0 0</pose>
+      <include>
+        <uri>model://x3_description</uri>
+      </include>
+      <script>
+        <loop>false</loop>
+        <auto_start>true</auto_start>
+        <delay_start>5.0</delay_start>
+        <trajectory id='0' type='square' tension='1.0'>
+          <waypoint>
+            <time>0.0</time>
+            <pose>-20 -20 1.5 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>22.0</time>
+            <pose>40.2 -0.9 1.5 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>28.0</time>
+            <pose>40.62 -9.54 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>31.0</time>
+            <pose>40.75 -12.12 2.86 0 0 -1.52</pose>
+          </waypoint>
+          <waypoint>
+            <time>35.0</time>
+            <pose>39.70 -15.61 0.77144 0 0 -1.032959</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose>-51.7 -49.4 62.0 0 0.5 0.8</pose>
@@ -17,10 +194,11 @@
     </gui>
 
     <scene>
-      <ambient>0.2 0.2 0.2 1.0</ambient>
+      <ambient>0.6 0.6 0.6 1.0</ambient>
       <background>0.34 0.39 0.43 1.0</background>
       <grid>false</grid>
       <origin_visual>false</origin_visual>
+      <shadows>false</shadows>
     </scene>
 
     <!-- TODO(chapulina): Entrance placeholder -->
@@ -122,14 +300,6 @@
           </contact>
         </sensor>
       </link>
-      <plugin name="touch_start_area" filename="libTouchPlugin.so">
-        <sensor>start_area_sensor</sensor>
-        <!-- empty target name lets the plugin detects everything -->
-        <target></target>
-        <time>0.001</time>
-        <namespace>subt/start</namespace>
-        <enabled>true</enabled>
-      </plugin>
     </model>
 
     <!-- Objects of interest -->
@@ -145,18 +315,18 @@
       <pose>121 62.2 -5 0 0 0.1</pose>
       <uri>model://Toolbox</uri>
     </include>
-
     <include>
-      <name>extinguisher_1</name>
-      <pose>145 -62 -5 0 0 0.2</pose>
-      <uri>model://Extinguisher</uri>
+      <name>toolbox_2</name>
+      <pose>41.598 2.087 0 0 0 -0.738658</pose>
+      <uri>model://Toolbox</uri>
     </include>
 
     <include>
-      <name>valve_1</name>
-      <pose>165 -62 -9 0 0 3.14159</pose>
+      <name>valve_2</name>
+      <pose>14.279 -2.24 0 0 0 3.14159</pose>
       <uri>model://Valve</uri>
     </include>
+
 
     <include>
       <name>radio_1</name>
@@ -165,16 +335,11 @@
     </include>
 
     <include>
-      <name>duct_1</name>
-      <pose>220 -180 -7.1 0 -1.5708 -1.5708</pose>
+      <name>duct_2</name>
+      <pose>26.94 1.95 1.84 0 0 1.570796</pose>
       <uri>model://Duct</uri>
     </include>
 
-    <include>
-      <name>electrical_box_1</name>
-      <pose>242 0 -10 0 0 -0.2</pose>
-      <uri>model://Electrical Box</uri>
-    </include>
 
     <include>
       <name>phone_1</name>
@@ -193,63 +358,46 @@
       <pose>342 -140 -10 0 0 -0.6</pose>
       <uri>model://Radio</uri>
     </include>
+    <include>
+      <name>radio_3</name>
+      <pose>41.83 1.62 0 0 0 0</pose>
+      <uri>model://Radio</uri>
+    </include>
 
+    <include>
+      <name>parrot_1</name>
+      <pose>25.017 -20.88 1.82 0 0.228651 -2.169708</pose>
+      <static>true</static>
+      <uri>model://parrot_bebop_2</uri>
+    </include>
 
-    <!-- The SubT challenge logic plugin -->
-    <plugin name="game_logic_plugin" filename="libGameLogicPlugin.so">
-      <!-- The collection of objects to locate -->
-      <object_of_interest>
-        <name>backpack_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>toolbox_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>extinguisher_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>valve_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>radio_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>duct_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>electrical_box_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>phone_1</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>backpack_2</name>
-      </object_of_interest>
-      <object_of_interest>
-        <name>radio_2</name>
-      </object_of_interest>
-    </plugin>
-
-    <light name='user_spot_light_0' type='spot'>
-      <pose>12 0 15 0 0.65 0</pose>
-      <diffuse>1 1 1 1</diffuse>
-      <specular>0.1 0.1 0.1 1</specular>
+    <light name='user_spot_light_0' type='directional'>
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>.6 .6 .6 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
       <direction>0 0 -1</direction>
       <attenuation>
-        <range>30</range>
-        <constant>0.001</constant>
+        <range>1000</range>
+        <constant>0.9</constant>
         <linear>0.01</linear>
-        <quadratic>0.000</quadratic>
+        <quadratic>0.0</quadratic>
       </attenuation>
-      <cast_shadows>1</cast_shadows>
-      <spot>
-        <inner_angle>0.0</inner_angle>
-        <outer_angle>1.5</outer_angle>
-        <falloff>0.01</falloff>
-      </spot>
+      <cast_shadows>0</cast_shadows>
     </light>
 
-  
+    <light name='user_point_light_0' type='point'>
+      <pose>103 -72 -5 0 0 0</pose>
+      <diffuse>.6 .6 .6 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>50</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.0</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+    </light>
+ 
     <include>
       <name>barrier_0_-1</name>
       <pose>
@@ -521,24 +669,7 @@
       <pose>40 -20 0 0 0 3.14159</pose>
     </include>
 
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_40_5</name>
-      <pose>40 -40 0 0 0 1.5708</pose>
-    </include>
-
     <!-- x = 60 -->
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_60_1</name>
-      <pose>60 60 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_60_2</name>
-      <pose>60 40 0 0 0 3.14159</pose>
-    </include>
 
     <include>
       <uri>model://tunnel_tile_2</uri>
@@ -546,48 +677,8 @@
       <pose>60 0 0 0 0 -1.5708</pose>
     </include>
 
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_60_4</name>
-      <pose>60 -20 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_60_5</name>
-      <pose>60 -40 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_60_6</name>
-      <pose>60 -60 0 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_60_7</name>
-      <pose>60 -100 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_60_8</name>
-      <pose>60 -120 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_60_9</name>
-      <pose>60 -140 0 0 0 1.5708</pose>
-    </include>
 
     <!-- x = 80 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_80_1</name>
-      <pose>80 60 0 0 0 1.5708</pose>
-    </include>
 
     <include>
       <uri>model://tunnel_tile_2</uri>
@@ -601,772 +692,155 @@
       <pose>80 20 0 0 0 1.5708</pose>
     </include>
 
+    <!-- Cap blockers -->
+
+    <!-- Wood wall blockage -->    
     <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_80_4</name>
-      <pose>80 -40 0 0 0 -1.5708</pose>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall1</name>
+      <pose>42.2 -11 0 0 0 0</pose>
     </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall2</name>
+      <pose>41 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall3</name>
+      <pose>39.8 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall4</name>
+      <pose>38.6 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall5</name>
+      <pose>37.4 -11 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall6</name>
+      <pose>42.2 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall7</name>
+      <pose>41 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall8</name>
+      <pose>39.8 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall9</name>
+      <pose>38.6 -11 1.2 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://nist_maze_wall_120</uri>
+      <name>nist_wall10</name>
+      <pose>37.4 -11 1.2 0 0 0</pose>
+    </include>
+    <!-- End Wood wall blockage -->    
 
     <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_80_5</name>
-      <pose>80 -60 0 0 0 0</pose>
+      <uri>model://Backpack</uri>
+      <name>backpack3</name>
+      <pose>40.405201 -17.156942 0 0 0 -2.323987</pose>
     </include>
 
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_80_6</name>
-      <pose>80 -80 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_80_7</name>
-      <pose>80 -100 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_80_8</name>
-      <pose>80 -120 0 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_80_9</name>
-      <pose>80 -140 0 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 100 -->
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_100_1</name>
-      <pose>100 60 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_100_2</name>
-      <pose>100 40 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_100_3</name>
-      <pose>100 20 -5 0 0 1.5708</pose>
-    </include>
+    <model name="rocky_tunnel_1">
+      <pose>21.282251 -55.654476 0 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>model://rocky_tunnel_1/meshes/rocky_tunnel_1.dae</uri>
+              <scale>1.6 1.6 1.6</scale>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>model://rocky_tunnel_1/meshes/rocky_tunnel_1.dae</uri>
+              <scale>1.6 1.6 1.6</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+    </model>
 
     <include>
       <uri>model://tunnel_tile_6</uri>
       <name>tile_100_4</name>
-      <pose>100 -60 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_100_5</name>
-      <pose>100 -120 -5 0 0 1.5708</pose>
+      <pose>55.804722 -55.696278 -5.129915 0 0 1.570801</pose>
     </include>
 
     <include>
       <uri>model://tunnel_tile_7</uri>
       <name>tile_100_6</name>
-      <pose>100 -140 -5 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 120 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_1</name>
-      <pose>120 60 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_2</name>
-      <pose>120 40 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_120_3</name>
-      <pose>120 20 -5 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_4</name>
-      <pose>120 0 -5 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_5</name>
-      <pose>120 -20 -5 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_6</name>
-      <pose>120 -40 -5 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_120_7</name>
-      <pose>120 -60 -5 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_120_8</name>
-      <pose>120 -80 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_9</name>
-      <pose>120 -120 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_120_10</name>
-      <pose>120 -140 -5 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 140 -->
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_140_1</name>
-      <pose>140 60 -5 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_140_2</name>
-      <pose>140 40 -5 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_140_3</name>
-      <pose>140 20 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_140_4</name>
-      <pose>140 -60 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_140_5</name>
-      <pose>140 -80 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_140_6</name>
-      <pose>140 -120 -5 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_140_7</name>
-      <pose>140 -140 -5 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_140_8</name>
-      <pose>140 -160 -5 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 160 -->
-    <include>
-      <uri>model://tunnel_tile_7</uri>
-      <name>tile_160_1</name>
-      <pose>160 40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_160_2</name>
-      <pose>160 20 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_160_3</name>
-      <pose>160 -60 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_160_4</name>
-      <pose>160 -80 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_160_5</name>
-      <pose>160 -120 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_6</uri>
-      <name>tile_160_6</name>
-      <pose>160 -160 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 180 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_1</name>
-      <pose>180 40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_180_2</name>
-      <pose>180 20 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_3</name>
-      <pose>180 0 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_4</name>
-      <pose>180 -20 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_5</name>
-      <pose>180 -40 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_4</uri>
-      <name>tile_180_6</name>
-      <pose>180 -60 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_7</name>
-      <pose>180 -80 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_8</name>
-      <pose>180 -120 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_180_9</name>
-      <pose>180 -160 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 200 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_200_1</name>
-      <pose>200 40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile__200_2</name>
-      <pose>200 -60 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile__200_3</name>
-      <pose>200 -120 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile__200_4</name>
-      <pose>200 -160 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile__200_5</name>
-      <pose>200 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 220 -->
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_220_1</name>
-      <pose>220 100 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_220_2</name>
-      <pose>220 80 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_220_3</name>
-      <pose>220 60 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_220_4</name>
-      <pose>220 40 -10 0 0 3.14159</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_220_5</name>
-      <pose>220 -60 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_220_6</name>
-      <pose>220 -80 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_220_7</name>
-      <pose>220 -120 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_220_8</name>
-      <pose>220 -140 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_220_9</name>
-      <pose>220 -160 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_220_10</name>
-      <pose>220 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 240 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_240_1</name>
-      <pose>240 100 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_240_2</name>
-      <pose>240 60 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_240_3</name>
-      <pose>240 40 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_240_4</name>
-      <pose>240 20 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_240_5</name>
-      <pose>240 0 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_240_6</name>
-      <pose>240 -80 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_240_7</name>
-      <pose>240 -100 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_240_8</name>
-      <pose>240 -160 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_240_9</name>
-      <pose>240 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 260 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_260_1</name>
-      <pose>260 100 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_260_2</name>
-      <pose>260 60 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_260_3</name>
-      <pose>260 40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_260_4</name>
-      <pose>260 -100 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_260_5</name>
-      <pose>260 -120 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_260_6</name>
-      <pose>260 -140 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_260_7</name>
-      <pose>260 -160 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_260_8</name>
-      <pose>260 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 280 -->
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_280_1</name>
-      <pose>280 100 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_280_2</name>
-      <pose>280 80 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_280_3</name>
-      <pose>280 60 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_280_4</name>
-      <pose>280 40 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_280_5</name>
-      <pose>280 20 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_280_6</name>
-      <pose>280 0 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_280_7</name>
-      <pose>280 -20 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_280_8</name>
-      <pose>280 -40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_280_9</name>
-      <pose>280 -140 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_280_10</name>
-      <pose>280 -160 -10 0 0 3.14159</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_280_11</name>
-      <pose>280 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 300 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_300_1</name>
-      <pose>300 40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_300_2</name>
-      <pose>300 -20 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_1</uri>
-      <name>tile_300_3</name>
-      <pose>300 -40 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_300_4</name>
-      <pose>300 -60 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_300_5</name>
-      <pose>300 -80 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_300_6</name>
-      <pose>300 -100 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_300_7</name>
-      <pose>300 -140 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_300_8</name>
-      <pose>300 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 320 -->
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_320_1</name>
-      <pose>320 40 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_320_2</name>
-      <pose>320 20 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_320_3</name>
-      <pose>320 0 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_320_4</name>
-      <pose>320 -20 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_320_5</name>
-      <pose>320 -40 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_320_6</name>
-      <pose>320 -100 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_320_7</name>
-      <pose>320 -120 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_320_8</name>
-      <pose>320 -140 -10 0 0 3.14159</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_320_9</name>
-      <pose>320 -180 -10 0 0 1.5708</pose>
-    </include>
-
-    <!-- x = 340 -->
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_1</name>
-      <pose>340 0 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_2</name>
-      <pose>340 -20 -10 0 0 1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_340_3</name>
-      <pose>340 -40 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_4</name>
-      <pose>340 -60 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_5</name>
-      <pose>340 -80 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_6</name>
-      <pose>340 -100 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_7</name>
-      <pose>340 -120 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_8</name>
-      <pose>340 -140 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_5</uri>
-      <name>tile_340_9</name>
-      <pose>340 -160 -10 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_340_10</name>
-      <pose>340 -180 -10 0 0 3.14159</pose>
-    </include>
-
-    <!-- x = 360 -->
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_360_1</name>
-      <pose>360 0 -10 0 0 -1.5708</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_2</uri>
-      <name>tile_360_2</name>
-      <pose>360 -20 -10 0 0 3.14159</pose>
-    </include>
-
-    <!-- Cap blockers -->
-    <include>
-      <uri>model://tunnel_tile_blocker</uri>
-      <name>blocker_90_1</name>
-      <pose>90 -100 0 0 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://tunnel_tile_blocker</uri>
-      <name>blocker_180_1</name>
-      <pose>180 -70 -10 0 0 0</pose>
+      <pose>75.78 -55.696278 -10.129915 0 0 1.5708</pose>
     </include>
 
     <include>
       <uri>model://tunnel_tile_blocker</uri>
       <name>blocker_190_1</name>
-      <pose>190 -80 -10 0 0 0</pose>
+      <pose>88 -55.696278 -10 0 0 0</pose>
     </include>
 
     <include>
-      <uri>model://tunnel_tile_blocker</uri>
-      <name>blocker_240_1</name>
-      <pose>240 -10 -10 0 0 0</pose>
+      <uri>model://subway_station</uri>
+      <name>subway_station</name>
+      <pose>102.143272 -66.913231 -12.352085 0 0 0</pose>
     </include>
 
     <include>
-      <uri>model://tunnel_tile_blocker</uri>
-      <name>blocker_260_1</name>
-      <pose>260 -150 -10 0 0 0</pose>
+      <uri>model://x1_description</uri>
+      <pose>105.78 -69.407 -18.825 0 0 1.570796</pose>
     </include>
-    
 
-    <!-- The SubT comms broker plugin -->
-    <plugin name="comms_broker_plugin" filename="libCommsBrokerPlugin.so">
-      <comms_model>
-        <neighbor_distance_min>0.0</neighbor_distance_min>
-        <neighbor_distance_max>100.0</neighbor_distance_max>
-        <comms_distance_min>0.0</comms_distance_min>
-        <comms_distance_max>100.0</comms_distance_max>
-        <comms_drop_probability_min>0.0</comms_drop_probability_min>
-        <comms_drop_probability_max>0.0</comms_drop_probability_max>
-        <comms_outage_probability>0.0</comms_outage_probability>
-        <comms_outage_duration_min>0.0</comms_outage_duration_min>
-        <comms_outage_duration_max>10.0</comms_outage_duration_max>
-      </comms_model>
-    </plugin>
+    <include>
+      <uri>model://x2_description</uri>
+      <pose>104.78 -69.407 -18.89 0 0 1.570796</pose>
+    </include>
 
-    <!-- rotors_gazebo support -->
-    <plugin name="ros_interface_plugin"
-            filename="librotors_gazebo_ros_interface_plugin.so"/>
+    <include>
+      <uri>model://x3_description</uri>
+      <pose>103.78 -69.407 -18.90 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://x4_description</uri>
+      <pose>102.78 -69.407 -18.845 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://lidar_2d_v1</uri>
+      <pose>100 -69.407 -18.845 0 0 1.570796</pose>
+    </include>
+    <include>
+      <uri>model://lidar_2d_v2</uri>
+      <pose>99.85 -69.407 -18.845 0 0 1.570796</pose>
+    </include>
+    <include>
+      <uri>model://lidar_3d_v1</uri>
+      <pose>99 -69.407 -18.845 0 0 1.570796</pose>
+    </include>
+    <include>
+      <uri>model://lidar_3d_v2</uri>
+      <pose>98.8 -69.407 -18.845 0 0 1.570796</pose>
+    </include>
+
+    <include>
+      <uri>model://rgbd_camera</uri>
+      <pose>98 -69.407 -18.845 0 0 -1.570796</pose>
+    </include>
 
   </world>
 </sdf>
