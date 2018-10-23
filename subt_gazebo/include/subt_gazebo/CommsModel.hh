@@ -27,6 +27,7 @@
 #include <vector>
 #include <gazebo/common/Time.hh>
 #include <gazebo/physics/PhysicsTypes.hh>
+#include <gazebo/physics/RayShape.hh>
 #include <ignition/math.hh>
 #include <sdf/sdf.hh>
 #include "subt_gazebo/CommonTypes.hh"
@@ -98,6 +99,13 @@ namespace subt
     /// \param[in] _address Address of the robot to be updated.
     private: void UpdateNeighborList(const std::string &_address);
 
+    /// \brief Get whether two points have line of sight.
+    /// \param[in] _p1 First coordinate
+    /// \param[in] _p1 Second coordinate
+    /// \return True if the two points are visible
+    private: bool LineOfSight(const ignition::math::Vector3d &_p1,
+                              const ignition::math::Vector3d &_p2);
+
     /// \brief Visibility between vehicles. The key is a pair with the
     /// addresses of the vehicles involved. The value is a vector of strings
     /// that stores the entity names of the first and last obstacles between the
@@ -165,6 +173,9 @@ namespace subt
     /// When simple mode is enabled, all messages will be delivered to the
     /// destinations.
     private: bool simpleMode = false;
+
+    // \brief Ray used to test for line of sight.
+    private: gazebo::physics::RayShapePtr ray;
   };
 }  // namespace
 #endif
