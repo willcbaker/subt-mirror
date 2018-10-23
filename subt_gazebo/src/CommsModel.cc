@@ -24,6 +24,7 @@
 #include <gazebo/physics/Collision.hh>
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/PhysicsEngine.hh>
+#include <gazebo/physics/PhysicsIface.hh>
 #include <gazebo/physics/RayShape.hh>
 #include <gazebo/physics/World.hh>
 #include <ignition/math.hh>
@@ -42,6 +43,10 @@ CommsModel::CommsModel(TeamMembershipPtr _team,
   GZ_ASSERT(_sdf,   "CommsModel() error: _sdf pointer is NULL");
 
   this->LoadParameters(_sdf);
+
+  gazebo::physics::WorldPtr world = gazebo::physics::get_world();
+  this->ray = boost::dynamic_pointer_cast<gazebo::physics::RayShape>(
+    world->Physics()->CreateShape("ray", gazebo::physics::CollisionPtr()));
 }
 
 //////////////////////////////////////////////////
@@ -301,8 +306,6 @@ void CommsModel::UpdateNeighborList(const std::string &_address)
     if (other->address == _address)
       continue;
 
-    // ToDo: Check if there's line of sight between the two vehicles.
-
     auto key = std::make_pair(_address, other->address);
     GZ_ASSERT(this->visibility.find(key) != this->visibility.end(),
       "vehicle key not found in visibility");
@@ -335,6 +338,10 @@ void CommsModel::UpdateNeighborList(const std::string &_address)
     {
       continue;
     }
+
+    // Check if there's line of sight between the two vehicles.
+    if (!LineOfSight(myPose.Pos(), otherPose.Pos()))
+      continue;
 
     // Now apply the comms model to compute a probability of a packet from
     // this neighbor arriving successfully.
@@ -370,6 +377,21 @@ void CommsModel::UpdateNeighborList(const std::string &_address)
     // neighbor list.
     teamMember->neighbors[member.first] = commsProb;
   }
+}
+
+//////////////////////////////////////////////////
+bool CommsModel::LineOfSight(const ignition::math::Vector3d &_p1,
+                             const ignition::math::Vector3d &_p2)
+{
+  std::string firstEntity;
+  double dist;
+
+  this->ray->SetPoints(_p1, _p2);
+  this->ray->GetIntersection(dist, firstEntity);
+
+  std::cout << firstEntity << std::endl;
+
+  return firstEntity.empty();
 }
 
 //////////////////////////////////////////////////
