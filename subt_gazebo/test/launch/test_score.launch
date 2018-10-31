@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="scenario" default="tunnel_practice_1"/>
-  <arg name="extra_gazebo_args" default=""/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name"
@@ -11,7 +10,10 @@
     <arg name="gui" value="true"/>
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
-    <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args) --verbose"/>
+    <arg name="extra_gazebo_args" value="--verbose"/>
+  </include>
+
+  <include file="$(find subt_gazebo)/test/launch/test_team.launch">
   </include>
 
 </launch>
